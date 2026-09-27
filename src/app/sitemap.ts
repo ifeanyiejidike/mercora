@@ -1,6 +1,9 @@
 import type { MetadataRoute } from "next";
 
-const baseUrl = "https://www.mercora.com";
+// Was hardcoded to "https://www.mercora.com" — didn't match
+// NEXT_PUBLIC_SITE_URL used everywhere else (gravity-concepts.com in
+// .env.production), so sitemap URLs would have been wrong in production.
+const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
 
 const publicRoutes = [
   "",

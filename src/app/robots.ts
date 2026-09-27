@@ -1,6 +1,8 @@
 import type { MetadataRoute } from "next";
 
-const baseUrl = "https://www.mercora.com";
+// Same fix as sitemap.ts — was hardcoded to a domain that didn't match
+// NEXT_PUBLIC_SITE_URL used everywhere else.
+const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
 
 export default function robots(): MetadataRoute.Robots {
   return {
