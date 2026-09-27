@@ -16,6 +16,7 @@ This frontend is intentionally built as an operational commerce product, not a b
 
 ## Table of Contents
 
+- [Known Issues Fixed](#known-issues-fixed)
 - [Project Overview](#project-overview)
 - [Product Positioning](#product-positioning)
 - [Current Frontend Scope](#current-frontend-scope)
@@ -40,8 +41,24 @@ This frontend is intentionally built as an operational commerce product, not a b
 - [Performance Standards](#performance-standards)
 - [Security Standards](#security-standards)
 - [Testing and QA Checklist](#testing-and-qa-checklist)
+- [Containerization and CI/CD](#containerization-and-cicd)
 - [Deployment Notes](#deployment-notes)
 - [Known Architectural Principles](#known-architectural-principles)
+
+---
+
+## Known Issues Fixed
+
+Found and fixed during a production-readiness pass (dates approximate — check git blame for exact commits):
+
+- **Next.js 16.1.6 → 16.3.6**: the pinned version had several real security advisories, including a critical unauthenticated RCE and a Server Actions CSRF bypass. Upgraded and re-verified typecheck/lint/build all still pass.
+- **axios 1.13.5 → 1.20.0**: multiple real CVEs affecting a library used for every API call in this app (auth, payments, everything). `npm audit` went from 16 vulnerabilities (1 critical) to 0 after this and the Next.js bump plus `npm audit fix`.
+- **`next lint` no longer exists** in Next.js 16; the project's ESLint config was also still in the pre-v9 `.eslintrc.cjs` format. Migrated to a native flat config (`eslint.config.mjs`) and pointed `npm run lint` at `eslint .` directly.
+- **`/api/auth/logout` and `/api/auth/refresh`** were empty files with no exported handler — a Next.js build failure waiting to happen. Confirmed nothing calls them (the real auth flow hits the Django backend directly) and removed them rather than guessing at cookie-proxy logic nothing uses.
+- **`next-sitemap.config.js` had a hardcoded, stale domain** that didn't match `.env.production`'s `NEXT_PUBLIC_SITE_URL` — sitemap URLs would have been wrong in production. Now derived from the same env var.
+- **`next.config.ts` had leftover remote-image hostnames from a different project** (an unrelated backend domain, a placeholder Supabase URL). Removed; the real media hostname is now derived from `NEXT_PUBLIC_API_URL` so it can't silently drift again.
+- **`revalidateTag` needed a second argument** under Next.js 16's updated cache API — caught by `tsc`, fixed.
+- Removed two genuinely unused dependencies: `resend`, `@react-google-maps/api`.
 
 ---
 
@@ -113,21 +130,25 @@ Platform-wide dashboards and control surfaces for merchants, stores, orders, pay
 
 Current and intended frontend stack:
 
-- Next.js App Router
-- React
+- Next.js 16 App Router
+- React 19
 - TypeScript
 - Tailwind CSS
-- Axios-based API layer
+- Axios-based API layer (calls the Django backend directly via `NEXT_PUBLIC_API_URL` — see Authentication and Session Strategy)
 - Context providers for auth and merchant/storefront state
 - lightweight client stores for cart and checkout workflows
-- SEO metadata routes via App Router conventions
-- route handlers for auth refresh/logout, health, and revalidation
+- SEO metadata routes via App Router conventions (`sitemap.ts`, `robots.ts`, `manifest.ts`, `opengraph-image.tsx`)
+- route handlers for health check (`/api/health`) and on-demand ISR revalidation (`/api/revalidate`)
+- ESLint 9 (flat config — `eslint.config.mjs`; `next lint` no longer exists as of Next.js 16)
+- Sentry error monitoring (`@sentry/nextjs`) — wired via `src/instrumentation.ts` (server/edge) and `src/instrumentation-client.ts` (browser), plus `withSentryConfig(...)` wrapping `next.config.ts`. Entirely no-op unless `NEXT_PUBLIC_SENTRY_DSN` is set — no Sentry account needed for local dev. Source-map upload (for readable stack traces) additionally needs `SENTRY_AUTH_TOKEN`/`SENTRY_ORG`/`SENTRY_PROJECT`; without them the build still succeeds, it just skips that step.
 
 Optional or implementation-dependent tooling:
 
 - query/state helpers for server-side data hydration
 - theme provider if dark/light mode remains enabled
 - shadcn/ui-style primitives where appropriate
+
+Removed as unused dead dependencies (were installed but never imported anywhere): `resend`, `@react-google-maps/api`. Re-add only if an actual feature starts using them.
 
 ---
 
@@ -315,10 +336,20 @@ Current platform admin workspace is centered on `/platform-admin` and includes:
 
 Current app route handlers include:
 
-- `/api/auth/logout`
-- `/api/auth/refresh`
-- `/api/health`
-- `/api/revalidate`
+- `/api/health` — liveness check for this app + a best-effort check that the Django backend is reachable
+- `/api/revalidate` — on-demand ISR revalidation, gated by `REVALIDATE_SECRET` (see `.env.example`)
+
+Note: `/api/auth/logout` and `/api/auth/refresh` were previously present
+as empty stub files (no exported handler — would have failed the
+production build) and unreferenced by any client code; the actual auth
+flow (`src/lib/api/auth.ts`) calls the Django backend's
+`/api/auth/logout/` and `/api/auth/refresh/` endpoints directly via
+`NEXT_PUBLIC_API_URL`, not a local route. Removed rather than
+implemented, since inventing cookie-proxy logic nothing currently calls
+risked introducing a second, inconsistent auth path. If a Next.js-side
+BFF proxy for these is actually wanted (e.g. to keep tokens off the
+client entirely), that's a deliberate architecture decision worth
+making explicitly rather than guessing at here.
 
 ---
 
@@ -605,36 +636,64 @@ Rules:
 
 ## Environment Variables
 
+Full authoritative list with inline documentation: `.env.example` (copy to `.env.local` for local dev). Summary:
+
 ### Required
 
 ```bash
+NEXT_PUBLIC_SITE_URL=http://localhost:3000
 NEXT_PUBLIC_API_URL=http://localhost:8000
 ```
 
-This should point to the Django backend origin, not just `/api`.
+`NEXT_PUBLIC_API_URL` should point to the Django backend origin, not just `/api`. `NEXT_PUBLIC_SITE_URL` is used for sitemap generation and canonical/OpenGraph URLs — **this previously drifted out of sync** (see Known Issues Fixed below); both now derive from the same env var everywhere it's needed.
 
-Examples:
+### Auth cookie names (must match backend)
 
 ```bash
-NEXT_PUBLIC_API_URL=http://localhost:8000
-NEXT_PUBLIC_API_URL=https://your-backend-domain.com
+NEXT_PUBLIC_CSRF_COOKIE_NAME=csrftoken
+AUTH_ACCESS_COOKIE_NAME=access_token
+AUTH_REFRESH_COOKIE_NAME=refresh_token
+```
+
+### On-demand revalidation
+
+```bash
+REVALIDATE_SECRET=            # required for POST /api/revalidate to work at all
+```
+
+### Error monitoring (optional)
+
+```bash
+NEXT_PUBLIC_SENTRY_DSN=        # blank = disabled, no account needed for local dev
+SENTRY_ENVIRONMENT=
 ```
 
 ### Notes
 
 - use environment-specific files such as `.env.local` for local development
-- keep secrets out of public client variables
+- keep secrets out of public client variables — anything prefixed `NEXT_PUBLIC_` is inlined into the client bundle and visible to anyone
 - public env vars should only contain values safe for browser exposure
+- `.env.production` should mirror this structure with real production values (never commit real secrets)
 
 ---
 
 ## Getting Started
 
-1. Install dependencies.
-2. Create your local environment file.
-3. Point `NEXT_PUBLIC_API_URL` to the Django backend.
-4. Start the development server.
+1. `cp .env.example .env.local` and fill in real values (defaults work for local dev against a locally-running backend).
+2. Install dependencies: `npm install`.
+3. Point `NEXT_PUBLIC_API_URL` at the Django backend.
+4. Start the development server: `npm run dev`.
 5. Confirm that auth, merchant, storefront, and platform pages can all communicate with the backend.
+6. Confirm the app itself and its backend dependency are both reachable: `curl http://localhost:3000/api/health/`
+
+Or, with Docker (production-parity build using the `standalone` output):
+
+```bash
+docker build --build-arg NEXT_PUBLIC_SITE_URL=http://localhost:3000 \
+              --build-arg NEXT_PUBLIC_API_URL=http://localhost:8000 \
+              -t mercora-frontend .
+docker run -p 3000:3000 mercora-frontend
+```
 
 ---
 
@@ -649,6 +708,8 @@ npm run lint
 ```
 
 If you use a different package manager, keep command equivalents consistent.
+
+Note: `next lint` was removed in Next.js 16 — `npm run lint` now runs `eslint .` directly against a native flat config (`eslint.config.mjs`), not the old `.eslintrc.cjs` format.
 
 ---
 
@@ -712,11 +773,29 @@ Frontend security rules:
 - do not expose privileged platform or merchant screens without backend-validated access
 - treat all financial and operational status as backend-owned truth
 
+**Production security headers** (`next.config.ts`, prod builds only — CSP is easy to fight with during local dev/HMR so it's intentionally scoped out of `DEBUG`/dev mode):
+
+- `Content-Security-Policy` — restricts scripts/styles/images/connections to this origin, the Django API origin, and a short explicit allowlist (Vercel Analytics, Google Fonts, Cloudinary/Unsplash for images)
+- `X-Frame-Options: DENY`, plus `frame-ancestors 'none'` in the CSP (clickjacking)
+- `X-Content-Type-Options: nosniff`
+- `Referrer-Policy: strict-origin-when-cross-origin`
+- `Permissions-Policy` — disables camera/microphone/geolocation, which this app doesn't use
+
+If you add a new external script or API host, update both `next.config.ts`'s CSP directives and the `img-src`/`connect-src` entries — a silently-blocked request (CSP violations fail closed, not with a helpful error) is a common source of "works locally, broken in prod" bugs.
+
 ---
 
 ## Testing and QA Checklist
 
-Before considering a frontend change complete, verify:
+**Current automated test status (verify before trusting this section — status can drift):**
+
+- **Type checking**: `npx tsc --noEmit` — clean.
+- **Lint**: `npm run lint` — 0 errors, ~82 warnings (mostly `react-hooks/exhaustive-deps` and a few unused imports). Not yet fixed; safe to fix incrementally, none block a build.
+- **Unit/component tests**: **none configured.** No Jest or Vitest setup exists yet. This is a real gap for a project this size — worth adding (Vitest + React Testing Library is the natural fit for a Next.js App Router project) before relying on this checklist alone for confidence.
+- **E2E tests**: **scaffolded but not implemented.** `e2e/*.spec.ts` exist (auth, onboarding, merchant-dashboard, merchant-orders, managed-checkout-flow, manual-payment-flow, receipt-flow, platform-admin, marketing) but every file is currently empty, and `@playwright/test` is not in `package.json`. The file names describe the intended coverage — treat them as a to-do list, not existing tests. `npm test`/`npm run e2e` do not currently exist as scripts.
+- **Build**: `npm run build` succeeds in any environment with normal internet access (Vercel, GitHub Actions). It will fail in network-restricted sandboxes specifically because `next/font/google` needs to fetch font files at build time — that's an environment limitation, not an app bug.
+
+Before considering a frontend change complete, manually verify:
 
 - marketing pages render and navigate correctly
 - auth flows handle logged-out, invalid, expired, and success states
@@ -728,27 +807,41 @@ Before considering a frontend change complete, verify:
 
 Recommended checks:
 
-- `npm run lint`
-- `npm run build`
+```bash
+npx tsc --noEmit
+npm run lint
+npm run build
+```
+
 - manual viewport sweep across mobile, tablet, laptop, and desktop
+
+---
+
+## Containerization and CI/CD
+
+- **Dockerfile**: multi-stage (`deps` → `builder` → `runner`), using Next.js's `output: "standalone"` build for a minimal production image. `NEXT_PUBLIC_*` values must be passed as Docker build args (they're inlined into the client bundle at build time, not read at container start). Production deployment is Vercel — this Dockerfile is for local dev-parity testing and as an optional self-hosting path, not the primary deploy target.
+- **GitHub Actions** (`.github/workflows/ci.yml`): on every push/PR to `main` — install → `tsc --noEmit` → `npm run lint` → `npm run build`.
 
 ---
 
 ## Deployment Notes
 
-Recommended deployment shape:
+**Confirmed production hosting:**
 
-- frontend on Vercel or equivalent Next.js host
-- backend on Render or equivalent Django host
-- Postgres-backed production database
-- media and static assets handled according to backend deployment policy
+- **Vercel** — this frontend
+- **Render** — Django backend (web + worker services) + managed Redis
+- **Neon** — managed PostgreSQL (backend)
+- Media/static assets via Cloudinary (backend-owned)
 
 Deployment concerns:
 
-- ensure frontend origin is trusted by backend CORS/CSRF settings
+- ensure frontend origin is trusted by backend CORS/CSRF settings (`FRONTEND_ORIGINS` on the backend)
 - ensure `NEXT_PUBLIC_API_URL` points to the correct backend origin
+- ensure `NEXT_PUBLIC_SITE_URL` matches the actual production domain — sitemap/robots/OpenGraph URLs all derive from it
 - verify payment callbacks and post-payment UX against production URLs
 - verify SEO files, manifest, sitemap, and robots behavior in production
+- set `REVALIDATE_SECRET` if any on-demand ISR revalidation is wired up
+- CI green on `main` before deploying
 
 ---
 

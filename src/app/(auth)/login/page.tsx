@@ -2,34 +2,20 @@
 
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useMemo, useState } from "react";
-
-import { z } from "zod";
-
+import React, { useEffect, useMemo, useState } from "react";
 import { useAuth } from "@/hooks/use-auth";
 import { extractApiErrorMessage } from "@/lib/api/axios";
 import { env } from "@/lib/config/env";
 
-// ==============================
-// ZOD SCHEMA
-// ==============================
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm, SubmitHandler } from "react-hook-form";
+import { Eye, EyeOff } from "lucide-react";
 
-export const loginSchema = z.object({
-  email: z.string().email("Enter a valid email address"),
-  password: z.string().min(6, "Password must be at least 6 characters"),
-});
+import { LoginFormValues, loginSchema } from "@/lib/schema";
 
-export type LoginFormValues = z.infer<typeof loginSchema>;
-
-// ==============================
-// TYPES
-// ==============================
 
 type FormErrors = Partial<Record<keyof LoginFormValues, string>>;
 
-// ==============================
-// FLOATING INPUT
-// ==============================
 
 type FloatingInputProps = {
   id: string;
@@ -193,7 +179,7 @@ export default function LoginPage() {
     switch (role) {
       case "merchant_owner":
       case "merchant_staff":
-        return "/merchant/dashboard";
+        return "/dashboard";
 
       case "platform_admin":
       case "support_agent":
@@ -204,9 +190,6 @@ export default function LoginPage() {
     }
   };
 
-  // ==============================
-  // SUBMIT
-  // ==============================
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -236,9 +219,6 @@ export default function LoginPage() {
     }
   };
 
-  // ==============================
-  // UI
-  // ==============================
 
   return (
     <main className="relative min-h-[calc(100vh-74px)] bg-[#06080F] text-white">
@@ -309,7 +289,7 @@ export default function LoginPage() {
               disabled={isSubmitting}
               className="w-full h-12 bg-indigo-600 rounded-xl"
             >
-              {isSubmitting ? "Signing in..." : "Continue"}
+              {isSubmitting ? "Logging in..." : "Continue"}
             </button>
 
             <p className="text-sm text-center text-slate-500">
