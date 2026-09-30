@@ -1,6 +1,6 @@
 export default function LoadingPage() {
   return (
-    <section className="relative isolate overflow-hidden bg-[#040A18]">
+    <section className="relative isolate overflow-hidden bg-neutral-1">
       <div className="absolute inset-0">
         <div className="absolute left-0 top-0 h-[320px] w-[320px] rounded-full bg-indigo-600/10 blur-3xl" />
         <div className="absolute right-0 top-[100px] h-[280px] w-[280px] rounded-full bg-blue-500/10 blur-3xl" />

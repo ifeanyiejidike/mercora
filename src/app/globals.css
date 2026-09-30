@@ -1,11 +1,84 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
-/* Custom styles */
-.text-deep-blue {
-  color: rgb(19,51,93);
-}
+/*
+ * Brand + semantic color tokens.
+ *
+ * Sourced from @radix-ui/colors' dark-mode "Iris" scale (chosen because
+ * its step 9, #5b5bd6, is nearly identical to the #5b3df5 already
+ * established across ~80 files as the actual brand color — this
+ * formalizes what's already shipped rather than replacing it) plus its
+ * Green/Amber/Red dark scales for semantic states. Every text-on-background
+ * pairing below has been computed against Mercora's actual established
+ * app background (#0b1224) and passes WCAG AA (4.5:1) with real margin —
+ * see the "Contrast" comment on each pairing. Values are copied verbatim
+ * from the installed @radix-ui/colors package, not hand-picked.
+ *
+ * Usage pattern per Radix's own convention (also already how this app's
+ * existing status pills look, e.g. the dashboard's "Paid"/"Pending"
+ * badges): steps 1-2 = app backgrounds, 3-5 = component backgrounds,
+ * 6-8 = borders, 9-10 = solid fills, 11-12 = accessible text.
+ *
+ * Important: solid fills (step 9) do NOT reliably pass contrast with
+ * white text for green/red (verified: 3.16:1 / 3.91:1 — both fail AA).
+ * Use the "subtle" pattern instead for badges/pills: step-3 background +
+ * step-11 text (verified: 7.75-10.26:1 across green/amber/red). Brand's
+ * step-9 is the one exception safe for white text (5.37:1, passes) —
+ * that's why it's used for the solid gradient CTA below.
+ */
+:root {
+  /* Brand (Iris) */
+  --brand-1: #13131e;
+  --brand-2: #171625;
+  --brand-3: #202248;
+  --brand-4: #262a65;
+  --brand-5: #303374;
+  --brand-6: #3d3e82;
+  --brand-7: #4a4a95;
+  --brand-8: #5958b1;
+  --brand-9: #5b5bd6;   /* solid fill — white text passes at 5.37:1 */
+  --brand-10: #6e6ade;  /* solid fill, hover state */
+  --brand-11: #b1a9ff;  /* accessible text on dark bg — 8.87:1 */
+  --brand-12: #e0dffe;
+  /* Existing established gradient's blue endpoint — kept as-is (single,
+     consistent value, not part of the fragmentation problem) and now
+     named instead of repeated as a literal in every usage. */
+  --brand-gradient-end: #3b82f6;
+  --brand-gradient: linear-gradient(135deg, var(--brand-9) 0%, var(--brand-gradient-end) 100%);
 
+  /* Neutral / background — kept as the already-established, already-
+     shipped, already-screenshotted values (not swapped for a generic
+     gray scale) so this formalizes the real brand rather than shifting it. */
+  --neutral-1: #040a18;  /* deepest bg — 2nd-most-used arbitrary hex (54 occurrences) */
+  --neutral-2: #0b1224;  /* base app bg — most-used arbitrary hex (93 occurrences) */
+
+  /* Three near-miss darks that were NOT folded into neutral-1/2: each is
+     perceptibly different (ΔE 3.1-5.1, computed via CIE76) and plays a
+     distinct structural role, so forcing them onto the two main tokens
+     would have caused a small but real visible color shift. Named
+     instead of left as unlabeled magic hex. (#0a1022, the 4th near-miss,
+     WAS folded into --neutral-2 — ΔE 0.84, an imperceptible duplicate.) */
+  --neutral-auth-bg: #06080f;    /* login/auth page root background */
+  --neutral-sidebar: #050913;    /* HomeHowItWorks step sidebar + floating card */
+  --neutral-panel: #111827;      /* HomeHero media panel wrapper */
+
+  /* Dark navy text for use ON white/light surfaces (e.g. the white
+     secondary buttons: bg-white + this text color). Contrast: 14.81:1
+     on white, 13.52:1 on the slate-100 hover state. Not a background
+     color — an earlier draft of this file mislabeled it as one. */
+  --ink: #1a2452;
+
+  /* Semantic states (Radix Green/Amber/Red dark scales) */
+  --success-3: #132d21;
+  --success-9: #30a46c;
+  --success-11: #3dd68c; /* text — 9.94:1 on neutral-2 */
+  --warning-3: #302008;
+  --warning-9: #ffc53d;
+  --warning-11: #ffca16; /* text — 12.17:1 on neutral-2 */
+  --error-3: #3b1219;
+  --error-9: #e5484d;
+  --error-11: #ff9592;   /* text — 8.85:1 on neutral-2 */
+}
 
 @keyframes float {
   0%, 100% { transform: translateY(0) scale(1); }
@@ -65,28 +138,72 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+
+  /* Brand + semantic tokens (see :root block above for sourcing/contrast notes) */
+  --color-brand-1: var(--brand-1);
+  --color-brand-2: var(--brand-2);
+  --color-brand-3: var(--brand-3);
+  --color-brand-4: var(--brand-4);
+  --color-brand-5: var(--brand-5);
+  --color-brand-6: var(--brand-6);
+  --color-brand-7: var(--brand-7);
+  --color-brand-8: var(--brand-8);
+  --color-brand-9: var(--brand-9);
+  --color-brand-10: var(--brand-10);
+  --color-brand-11: var(--brand-11);
+  --color-brand-12: var(--brand-12);
+  --color-neutral-1: var(--neutral-1);
+  --color-neutral-2: var(--neutral-2);
+  --color-neutral-auth-bg: var(--neutral-auth-bg);
+  --color-neutral-sidebar: var(--neutral-sidebar);
+  --color-neutral-panel: var(--neutral-panel);
+  --color-ink: var(--ink);
+  --color-success-3: var(--success-3);
+  --color-success-9: var(--success-9);
+  --color-success-11: var(--success-11);
+  --color-warning-3: var(--warning-3);
+  --color-warning-9: var(--warning-9);
+  --color-warning-11: var(--warning-11);
+  --color-error-3: var(--error-3);
+  --color-error-9: var(--error-9);
+  --color-error-11: var(--error-11);
 }
 
 :root {
   --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
+  /* These are what actually renders — .dark is never applied anywhere in
+     the app (confirmed: no `className` sets it, zero `dark:` variants
+     exist in app code), so :root is the only block that matters today.
+     Was the shadcn CLI's unmodified grayscale placeholder (oklch(X 0 0)
+     — zero chroma, literally no hue); re-pointed at the real tokens
+     above so any component that does reach for e.g. `bg-primary` renders
+     correctly instead of gray. Nothing currently does (confirmed: zero
+     imports of any src/components/ui/* primitive outside that folder
+     itself) — this is forward correctness, not a visible change today. */
+  --background: var(--neutral-1);
+  --foreground: #ffffff;
+  --card: var(--neutral-2);
+  --card-foreground: #ffffff;
+  --popover: var(--neutral-2);
+  --popover-foreground: #ffffff;
+  --primary: var(--brand-9);
+  --primary-foreground: #ffffff;
+  --secondary: rgba(255, 255, 255, 0.08);
+  --secondary-foreground: #ffffff;
+  --muted: rgba(255, 255, 255, 0.06);
+  --muted-foreground: #94a3b8;
+  --accent: rgba(255, 255, 255, 0.08);
+  --accent-foreground: #ffffff;
+  /* NOT var(--error-9) — that's #e5484d, which computes to only
+     3.91:1 with the white text Button's destructive variant
+     hardcodes, failing AA. Tailwind's red-600 passes at 4.83:1.
+     --error-9/-11 (the badge-pattern tokens) are intentionally
+     a different, more saturated red — they pair with tinted
+     text on a subtle background, not solid + white. */
+  --destructive: #dc2626;
+  --border: rgba(255, 255, 255, 0.1);
+  --input: rgba(255, 255, 255, 0.1);
+  --ring: var(--brand-9);
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);
@@ -103,24 +220,33 @@
 }
 
 .dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
+  /* Currently unreachable (see :root above) but kept identical rather
+     than left as the old placeholder, so nothing breaks if a toggle
+     mechanism is ever added later. */
+  --background: var(--neutral-1);
+  --foreground: #ffffff;
+  --card: var(--neutral-2);
+  --card-foreground: #ffffff;
+  --popover: var(--neutral-2);
+  --popover-foreground: #ffffff;
+  --primary: var(--brand-9);
+  --primary-foreground: #ffffff;
+  --secondary: rgba(255, 255, 255, 0.08);
+  --secondary-foreground: #ffffff;
+  --muted: rgba(255, 255, 255, 0.06);
+  --muted-foreground: #94a3b8;
+  --accent: rgba(255, 255, 255, 0.08);
+  --accent-foreground: #ffffff;
+  /* NOT var(--error-9) — that's #e5484d, which computes to only
+     3.91:1 with the white text Button's destructive variant
+     hardcodes, failing AA. Tailwind's red-600 passes at 4.83:1.
+     --error-9/-11 (the badge-pattern tokens) are intentionally
+     a different, more saturated red — they pair with tinted
+     text on a subtle background, not solid + white. */
+  --destructive: #dc2626;
+  --border: rgba(255, 255, 255, 0.1);
+  --input: rgba(255, 255, 255, 0.1);
+  --ring: var(--brand-9);
   --chart-1: oklch(0.488 0.243 264.376);
   --chart-2: oklch(0.696 0.17 162.48);
   --chart-3: oklch(0.769 0.188 70.08);

@@ -30,7 +30,7 @@ export default async function CheckoutFailedPage({
   const basePath = `/_stores/${storeSlug}`;
 
   return (
-    <main className="bg-[#040A18] text-white">
+    <main className="bg-neutral-1 text-white">
       <section className="mx-auto max-w-3xl px-4 py-16 sm:px-6 lg:px-8">
         <div className="rounded-[30px] border border-white/10 bg-[linear-gradient(180deg,rgba(16,22,48,0.78),rgba(8,12,28,0.96))] px-6 py-10 text-center shadow-[0_22px_60px_rgba(0,0,0,0.24)]">
           <h1 className="text-3xl font-bold tracking-[-0.04em] text-white">
@@ -58,7 +58,7 @@ export default async function CheckoutFailedPage({
                 href={`${basePath}/order/${encodeURIComponent(orderRef)}${
                   email ? `?email=${encodeURIComponent(email)}` : ""
                 }`}
-                className="inline-flex h-12 items-center justify-center rounded-xl bg-[linear-gradient(135deg,#5b3df5_0%,#3b82f6_100%)] px-6 text-sm font-semibold text-white"
+                className="inline-flex h-12 items-center justify-center rounded-xl bg-[image:var(--brand-gradient)] px-6 text-sm font-semibold text-white"
               >
                 Open order page
               </Link>

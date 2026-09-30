@@ -31,7 +31,7 @@ function EmptyActiveMerchantState() {
       </p>
       <Link
         href={env.routes.merchantDashboard}
-        className="mt-6 inline-flex h-12 items-center justify-center rounded-xl bg-[linear-gradient(135deg,#5b3df5_0%,#3b82f6_100%)] px-6 text-sm font-semibold text-white"
+        className="mt-6 inline-flex h-12 items-center justify-center rounded-xl bg-[image:var(--brand-gradient)] px-6 text-sm font-semibold text-white"
       >
         Go to merchant dashboard
       </Link>
@@ -206,19 +206,19 @@ export default function MerchantTeamPage() {
                 }
                 className="h-12 w-full rounded-xl border border-white/10 bg-white/[0.04] px-4 text-sm text-white outline-none focus:border-indigo-400/50 focus:bg-white/[0.06]"
               >
-                <option value="admin" className="bg-[#0b1224] text-slate-300">
+                <option value="admin" className="bg-neutral-2 text-slate-300">
                   Admin
                 </option>
-                <option value="operations" className="bg-[#0b1224] text-slate-300">
+                <option value="operations" className="bg-neutral-2 text-slate-300">
                   Operations
                 </option>
-                <option value="finance" className="bg-[#0b1224] text-slate-300">
+                <option value="finance" className="bg-neutral-2 text-slate-300">
                   Finance
                 </option>
-                <option value="support" className="bg-[#0b1224] text-slate-300">
+                <option value="support" className="bg-neutral-2 text-slate-300">
                   Support
                 </option>
-                <option value="viewer" className="bg-[#0b1224] text-slate-300">
+                <option value="viewer" className="bg-neutral-2 text-slate-300">
                   Viewer
                 </option>
               </select>
@@ -236,7 +236,7 @@ export default function MerchantTeamPage() {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="inline-flex h-12 items-center justify-center gap-2 rounded-xl bg-[linear-gradient(135deg,#5b3df5_0%,#3b82f6_100%)] px-6 text-sm font-semibold text-white shadow-[0_16px_38px_rgba(79,70,229,0.34)] transition duration-300 hover:-translate-y-0.5 hover:shadow-[0_20px_44px_rgba(79,70,229,0.42)] disabled:cursor-not-allowed disabled:opacity-70"
+                className="inline-flex h-12 items-center justify-center gap-2 rounded-xl bg-[image:var(--brand-gradient)] px-6 text-sm font-semibold text-white shadow-[0_16px_38px_rgba(79,70,229,0.34)] transition duration-300 hover:-translate-y-0.5 hover:shadow-[0_20px_44px_rgba(79,70,229,0.42)] disabled:cursor-not-allowed disabled:opacity-70"
               >
                 {isSubmitting ? "Adding..." : "Add membership"}
                 <Plus className="h-4 w-4" />

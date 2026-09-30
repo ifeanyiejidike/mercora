@@ -64,7 +64,7 @@ function EmptyActiveMerchantState() {
       </p>
       <Link
         href={env.routes.merchantDashboard}
-        className="mt-6 inline-flex h-12 items-center justify-center rounded-xl bg-[linear-gradient(135deg,#5b3df5_0%,#3b82f6_100%)] px-6 text-sm font-semibold text-white"
+        className="mt-6 inline-flex h-12 items-center justify-center rounded-xl bg-[image:var(--brand-gradient)] px-6 text-sm font-semibold text-white"
       >
         Go to merchant dashboard
       </Link>
@@ -193,7 +193,7 @@ export default function CustomersPageClient() {
             <select
               value={statusFilter}
               onChange={(event) => setStatusFilter(event.target.value)}
-              className="h-12 w-full rounded-xl border border-white/10 bg-[#0b1224] px-4 text-sm text-white outline-none focus:border-indigo-400/50"
+              className="h-12 w-full rounded-xl border border-white/10 bg-neutral-2 px-4 text-sm text-white outline-none focus:border-indigo-400/50"
             >
               <option value="">All statuses</option>
               <option value="lead">Lead</option>
@@ -211,7 +211,7 @@ export default function CustomersPageClient() {
             <select
               value={sourceFilter}
               onChange={(event) => setSourceFilter(event.target.value)}
-              className="h-12 w-full rounded-xl border border-white/10 bg-[#0b1224] px-4 text-sm text-white outline-none focus:border-indigo-400/50"
+              className="h-12 w-full rounded-xl border border-white/10 bg-neutral-2 px-4 text-sm text-white outline-none focus:border-indigo-400/50"
             >
               <option value="">All sources</option>
               <option value="storefront">Storefront</option>
@@ -243,7 +243,7 @@ export default function CustomersPageClient() {
             type="button"
             onClick={() => void loadCustomers(true)}
             disabled={isRefreshing}
-            className="inline-flex h-12 items-center justify-center gap-2 rounded-xl bg-[linear-gradient(135deg,#5b3df5_0%,#3b82f6_100%)] px-6 text-sm font-semibold text-white shadow-[0_16px_38px_rgba(79,70,229,0.34)] disabled:cursor-not-allowed disabled:opacity-70"
+            className="inline-flex h-12 items-center justify-center gap-2 rounded-xl bg-[image:var(--brand-gradient)] px-6 text-sm font-semibold text-white shadow-[0_16px_38px_rgba(79,70,229,0.34)] disabled:cursor-not-allowed disabled:opacity-70"
           >
             {isRefreshing ? (
               <>

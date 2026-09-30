@@ -117,7 +117,7 @@ const faqs = [
 
 export default function PricingPage() {
   return (
-    <main className="bg-[#040A18] text-white">
+    <main className="bg-neutral-1 text-white">
       <section className="relative overflow-hidden border-b border-white/5">
         <div className="absolute inset-0">
           <div className="absolute left-0 top-0 h-[360px] w-[360px] rounded-full bg-indigo-600/10 blur-3xl" />
@@ -145,7 +145,7 @@ export default function PricingPage() {
             <div className="mt-8 flex flex-col justify-center gap-4 sm:flex-row">
               <Link
                 href="/book-demo"
-                className="inline-flex h-14 items-center justify-center rounded-2xl bg-[linear-gradient(135deg,#5b3df5_0%,#3b82f6_100%)] px-7 text-sm font-semibold text-white shadow-[0_18px_45px_rgba(79,70,229,0.38)] transition duration-300 hover:-translate-y-0.5 hover:shadow-[0_22px_50px_rgba(79,70,229,0.42)]"
+                className="inline-flex h-14 items-center justify-center rounded-2xl bg-[image:var(--brand-gradient)] px-7 text-sm font-semibold text-white shadow-[0_18px_45px_rgba(79,70,229,0.38)] transition duration-300 hover:-translate-y-0.5 hover:shadow-[0_22px_50px_rgba(79,70,229,0.42)]"
               >
                 Book Demo
               </Link>
@@ -229,7 +229,7 @@ export default function PricingPage() {
                     className={[
                       "inline-flex h-12 w-full items-center justify-center rounded-xl px-5 text-sm font-semibold transition duration-300",
                       plan.featured
-                        ? "bg-white text-[#1a2452] hover:bg-slate-100"
+                        ? "bg-white text-ink hover:bg-slate-100"
                         : "border border-white/14 bg-white/[0.04] text-white hover:bg-white/[0.07]",
                     ].join(" ")}
                   >
@@ -314,7 +314,7 @@ export default function PricingPage() {
               <div className="flex flex-col gap-3 sm:flex-row lg:flex-col xl:flex-row">
                 <Link
                   href="/book-demo"
-                  className="inline-flex h-12 items-center justify-center rounded-xl bg-white px-6 text-sm font-semibold text-[#1a2452] transition duration-300 hover:bg-slate-100"
+                  className="inline-flex h-12 items-center justify-center rounded-xl bg-white px-6 text-sm font-semibold text-ink transition duration-300 hover:bg-slate-100"
                 >
                   Book Demo
                 </Link>

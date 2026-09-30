@@ -60,16 +60,16 @@ export default function OnboardingPaymentsPage() {
                 defaultValue=""
                 className="h-12 w-full rounded-xl border border-white/10 bg-white/[0.04] px-4 text-sm text-white outline-none transition focus:border-indigo-400/50 focus:bg-white/[0.06]"
               >
-                <option value="" disabled className="bg-[#0b1224] text-slate-300">
+                <option value="" disabled className="bg-neutral-2 text-slate-300">
                   Select provider
                 </option>
-                <option value="flutterwave" className="bg-[#0b1224] text-slate-300">
+                <option value="flutterwave" className="bg-neutral-2 text-slate-300">
                   Flutterwave
                 </option>
-                <option value="paystack" className="bg-[#0b1224] text-slate-300">
+                <option value="paystack" className="bg-neutral-2 text-slate-300">
                   Paystack
                 </option>
-                <option value="manual" className="bg-[#0b1224] text-slate-300">
+                <option value="manual" className="bg-neutral-2 text-slate-300">
                   Manual / bank transfer
                 </option>
               </select>
@@ -85,13 +85,13 @@ export default function OnboardingPaymentsPage() {
                 defaultValue=""
                 className="h-12 w-full rounded-xl border border-white/10 bg-white/[0.04] px-4 text-sm text-white outline-none transition focus:border-indigo-400/50 focus:bg-white/[0.06]"
               >
-                <option value="" disabled className="bg-[#0b1224] text-slate-300">
+                <option value="" disabled className="bg-neutral-2 text-slate-300">
                   Select settlement preference
                 </option>
-                <option value="standard" className="bg-[#0b1224] text-slate-300">
+                <option value="standard" className="bg-neutral-2 text-slate-300">
                   Standard settlement
                 </option>
-                <option value="managed" className="bg-[#0b1224] text-slate-300">
+                <option value="managed" className="bg-neutral-2 text-slate-300">
                   Managed payout routing
                 </option>
               </select>
@@ -133,7 +133,7 @@ export default function OnboardingPaymentsPage() {
 
             <Link
               href="/onboarding/plan"
-              className="inline-flex h-12 items-center justify-center gap-2 rounded-xl bg-[linear-gradient(135deg,#5b3df5_0%,#3b82f6_100%)] px-6 text-sm font-semibold text-white shadow-[0_16px_38px_rgba(79,70,229,0.34)] transition duration-300 hover:-translate-y-0.5 hover:shadow-[0_20px_44px_rgba(79,70,229,0.42)]"
+              className="inline-flex h-12 items-center justify-center gap-2 rounded-xl bg-[image:var(--brand-gradient)] px-6 text-sm font-semibold text-white shadow-[0_16px_38px_rgba(79,70,229,0.34)] transition duration-300 hover:-translate-y-0.5 hover:shadow-[0_20px_44px_rgba(79,70,229,0.42)]"
             >
               Continue to plan
               <ArrowRight className="h-4 w-4" />

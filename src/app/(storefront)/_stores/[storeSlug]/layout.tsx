@@ -35,7 +35,7 @@ export default async function StorefrontLayout({
   ) as Array<[string, string]>;
 
   return (
-    <div className="min-h-screen bg-[#040A18] text-white">
+    <div className="min-h-screen bg-neutral-1 text-white">
       <header className="sticky top-0 z-40 border-b border-white/10 bg-[rgba(4,10,24,0.86)] backdrop-blur-xl">
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-4 sm:px-6 lg:px-8">
           <Link

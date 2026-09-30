@@ -41,7 +41,7 @@ export default async function StorefrontPrivacyPolicyPage({
   const basePath = `/_stores/${storeSlug}`;
 
   return (
-    <main className="bg-[#040A18] text-white">
+    <main className="bg-neutral-1 text-white">
       <PolicyShell
         title="Privacy Policy"
         description={`Privacy and data handling information for ${storefront.store_name}.`}

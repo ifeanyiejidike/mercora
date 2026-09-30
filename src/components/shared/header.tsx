@@ -132,7 +132,7 @@ function BrandMark() {
     <Link
       href="/"
       aria-label="Mercora home"
-      className="inline-flex items-center gap-3 rounded-2xl focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-[#040A18]"
+      className="inline-flex items-center gap-3 rounded-2xl focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-1"
     >
       <div className="relative h-11 w-11 shrink-0 overflow-hidden rounded-2xl">
         <Image
@@ -284,6 +284,8 @@ export default function Header() {
   const [openMenu, setOpenMenu] = useState<string | null>(null);
   const [scrolled, setScrolled] = useState(false);
   const wrapperRef = useRef<HTMLDivElement | null>(null);
+  const drawerRef = useRef<HTMLDivElement | null>(null);
+  const mobileTriggerRef = useRef<HTMLButtonElement | null>(null);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
@@ -319,6 +321,53 @@ export default function Header() {
 
     return () => {
       document.body.style.overflow = "";
+    };
+  }, [mobileOpen]);
+
+  // Focus management for the mobile drawer: move focus into it on open
+  // (so keyboard/screen-reader users land somewhere sensible rather than
+  // on a now-hidden trigger), trap Tab/Shift+Tab within its focusable
+  // elements while open, and return focus to the trigger button on close
+  // rather than leaving it stranded on the document body.
+  useEffect(() => {
+    if (!mobileOpen) return;
+
+    const drawer = drawerRef.current;
+    if (!drawer) return;
+
+    const getFocusable = () =>
+      Array.from(
+        drawer.querySelectorAll<HTMLElement>(
+          'a[href], button:not([disabled]), input:not([disabled]), [tabindex]:not([tabindex="-1"])'
+        )
+      ).filter((el) => el.offsetParent !== null);
+
+    const focusable = getFocusable();
+    focusable[0]?.focus();
+
+    const onTrapKeyDown = (event: KeyboardEvent) => {
+      if (event.key !== "Tab") return;
+
+      const elements = getFocusable();
+      if (elements.length === 0) return;
+
+      const first = elements[0];
+      const last = elements[elements.length - 1];
+
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    };
+
+    drawer.addEventListener("keydown", onTrapKeyDown);
+
+    return () => {
+      drawer.removeEventListener("keydown", onTrapKeyDown);
+      mobileTriggerRef.current?.focus();
     };
   }, [mobileOpen]);
 
@@ -386,7 +435,7 @@ export default function Header() {
 
             <Link
               href="/sign-up"
-              className="inline-flex min-h-11 items-center justify-center rounded-full bg-[linear-gradient(135deg,#2563eb_0%,#3b82f6_100%)] px-5 py-2.5 text-sm font-semibold text-white shadow-[0_14px_40px_rgba(37,99,235,0.34)] transition hover:-translate-y-0.5 hover:shadow-[0_16px_46px_rgba(37,99,235,0.42)]"
+              className="inline-flex min-h-11 items-center justify-center rounded-full bg-[image:var(--brand-gradient)] px-5 py-2.5 text-sm font-semibold text-white shadow-[0_14px_40px_rgba(79,70,229,0.34)] transition hover:-translate-y-0.5 hover:shadow-[0_18px_45px_rgba(79,70,229,0.38)]"
             >
               Get Started
             </Link>
@@ -394,6 +443,7 @@ export default function Header() {
 
           <button
             type="button"
+            ref={mobileTriggerRef}
             aria-label="Open menu"
             aria-expanded={mobileOpen}
             onClick={() => setMobileOpen(true)}
@@ -418,6 +468,7 @@ export default function Header() {
         />
 
         <div
+          ref={drawerRef}
           className={`absolute right-0 top-0 flex h-dvh w-full max-w-sm flex-col border-l border-white/10 bg-[rgba(5,11,28,0.97)] shadow-[0_20px_80px_rgba(2,6,23,0.46)] transition-transform duration-300 ${
             mobileOpen ? "translate-x-0" : "translate-x-full"
           }`}
@@ -530,7 +581,7 @@ export default function Header() {
               <Link
                 href="/sign-up"
                 onClick={() => setMobileOpen(false)}
-                className="inline-flex min-h-12 items-center justify-center rounded-2xl bg-[linear-gradient(135deg,#2563eb_0%,#3b82f6_100%)] px-5 py-3 text-sm font-semibold text-white shadow-[0_14px_40px_rgba(37,99,235,0.34)] transition hover:bg-blue-500"
+                className="inline-flex min-h-12 items-center justify-center rounded-2xl bg-[image:var(--brand-gradient)] px-5 py-3 text-sm font-semibold text-white shadow-[0_14px_40px_rgba(79,70,229,0.34)] transition hover:-translate-y-0.5"
               >
                 Get Started
               </Link>

@@ -71,7 +71,7 @@ export default function SignUpPage() {
   };
 
   return (
-    <main className="bg-[#040A18] text-white">
+    <main className="bg-neutral-1 text-white">
       <section className="relative isolate overflow-hidden">
         <div className="absolute inset-0">
           <div className="absolute left-0 top-0 h-[360px] w-[360px] rounded-full bg-indigo-600/10 blur-3xl" />
@@ -273,7 +273,7 @@ export default function SignUpPage() {
                         <option
                           key={option.value}
                           value={option.value}
-                          className="bg-[#0b1224] text-slate-300"
+                          className="bg-neutral-2 text-slate-300"
                         >
                           {option.label}
                         </option>
@@ -317,7 +317,7 @@ export default function SignUpPage() {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-[linear-gradient(135deg,#5b3df5_0%,#3b82f6_100%)] px-6 text-sm font-semibold text-white shadow-[0_16px_38px_rgba(79,70,229,0.34)] transition duration-300 hover:-translate-y-0.5 hover:shadow-[0_20px_44px_rgba(79,70,229,0.42)] disabled:cursor-not-allowed disabled:opacity-70"
+                  className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-[image:var(--brand-gradient)] px-6 text-sm font-semibold text-white shadow-[0_16px_38px_rgba(79,70,229,0.34)] transition duration-300 hover:-translate-y-0.5 hover:shadow-[0_20px_44px_rgba(79,70,229,0.42)] disabled:cursor-not-allowed disabled:opacity-70"
                 >
                   {isSubmitting ? "Creating account..." : "Create Account"}
                   {!isSubmitting ? <ArrowRight className="h-4 w-4" /> : null}

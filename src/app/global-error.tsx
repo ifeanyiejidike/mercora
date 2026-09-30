@@ -19,7 +19,7 @@ export default function GlobalErrorPage({
 
   return (
     <html lang="en">
-      <body className="min-h-screen bg-[#040A18] text-white antialiased">
+      <body className="min-h-screen bg-neutral-1 text-white antialiased">
         <section className="relative isolate overflow-hidden">
           <div className="absolute inset-0">
             <div className="absolute left-0 top-0 h-[360px] w-[360px] rounded-full bg-red-500/10 blur-3xl" />
@@ -49,7 +49,7 @@ export default function GlobalErrorPage({
                   <button
                     type="button"
                     onClick={reset}
-                    className="inline-flex h-14 items-center justify-center gap-2 rounded-2xl bg-[linear-gradient(135deg,#5b3df5_0%,#3b82f6_100%)] px-7 text-sm font-semibold text-white shadow-[0_18px_45px_rgba(79,70,229,0.38)] transition duration-300 hover:-translate-y-0.5 hover:shadow-[0_22px_50px_rgba(79,70,229,0.42)]"
+                    className="inline-flex h-14 items-center justify-center gap-2 rounded-2xl bg-[image:var(--brand-gradient)] px-7 text-sm font-semibold text-white shadow-[0_18px_45px_rgba(79,70,229,0.38)] transition duration-300 hover:-translate-y-0.5 hover:shadow-[0_22px_50px_rgba(79,70,229,0.42)]"
                   >
                     <RefreshCcw className="h-4 w-4" />
                     Reset application

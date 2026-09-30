@@ -59,7 +59,7 @@ export default async function StorefrontCategoryPage({
   const basePath = `/_stores/${storeSlug}`;
 
   return (
-    <main className="bg-[#040A18] text-white">
+    <main className="bg-neutral-1 text-white">
       <section className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
         <div className="mb-6 flex flex-wrap items-center gap-3 text-sm text-slate-400">
           <Link href={basePath} className="transition hover:text-white">
@@ -100,7 +100,7 @@ export default async function StorefrontCategoryPage({
 
                 <Link
                   href={`${basePath}/search?q=${encodeURIComponent(category.name)}`}
-                  className="inline-flex h-14 items-center justify-center rounded-2xl bg-[linear-gradient(135deg,#5b3df5_0%,#3b82f6_100%)] px-7 text-sm font-semibold text-white shadow-[0_18px_45px_rgba(79,70,229,0.38)] transition duration-300 hover:-translate-y-0.5 hover:shadow-[0_22px_50px_rgba(79,70,229,0.42)]"
+                  className="inline-flex h-14 items-center justify-center rounded-2xl bg-[image:var(--brand-gradient)] px-7 text-sm font-semibold text-white shadow-[0_18px_45px_rgba(79,70,229,0.38)] transition duration-300 hover:-translate-y-0.5 hover:shadow-[0_22px_50px_rgba(79,70,229,0.42)]"
                 >
                   Search related items
                 </Link>

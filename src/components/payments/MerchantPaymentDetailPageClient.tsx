@@ -234,7 +234,7 @@ export default function MerchantPaymentDetailPageClient() {
                 type="button"
                 onClick={() => void verifyPayment()}
                 disabled={isVerifying}
-                className="inline-flex h-11 items-center justify-center gap-2 rounded-xl bg-[linear-gradient(135deg,#5b3df5_0%,#3b82f6_100%)] px-5 text-sm font-semibold text-white"
+                className="inline-flex h-11 items-center justify-center gap-2 rounded-xl bg-[image:var(--brand-gradient)] px-5 text-sm font-semibold text-white"
               >
                 {isVerifying ? <Loader2 className="h-4 w-4 animate-spin" /> : null}
                 Verify payment
@@ -318,7 +318,7 @@ export default function MerchantPaymentDetailPageClient() {
                   type="button"
                   onClick={() => void createRefund()}
                   disabled={isRefunding || !refundAmount.trim()}
-                  className="h-11 rounded-xl bg-[linear-gradient(135deg,#5b3df5_0%,#3b82f6_100%)] px-5 text-sm font-semibold text-white"
+                  className="h-11 rounded-xl bg-[image:var(--brand-gradient)] px-5 text-sm font-semibold text-white"
                 >
                   {isRefunding ? <Loader2 className="h-4 w-4 animate-spin" /> : null}
                   Refund

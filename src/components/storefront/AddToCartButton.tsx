@@ -68,7 +68,7 @@ export default function AddToCartButton({
           type="button"
           onClick={() => void handleAddToCart()}
           disabled={isLoading}
-          className="inline-flex h-14 flex-1 items-center justify-center gap-2 rounded-2xl bg-[linear-gradient(135deg,#5b3df5_0%,#3b82f6_100%)] px-7 text-sm font-semibold text-white shadow-[0_18px_45px_rgba(79,70,229,0.38)] transition duration-300 hover:-translate-y-0.5 hover:shadow-[0_22px_50px_rgba(79,70,229,0.42)] disabled:cursor-not-allowed disabled:opacity-70"
+          className="inline-flex h-14 flex-1 items-center justify-center gap-2 rounded-2xl bg-[image:var(--brand-gradient)] px-7 text-sm font-semibold text-white shadow-[0_18px_45px_rgba(79,70,229,0.38)] transition duration-300 hover:-translate-y-0.5 hover:shadow-[0_22px_50px_rgba(79,70,229,0.42)] disabled:cursor-not-allowed disabled:opacity-70"
         >
           {isLoading ? (
             <>

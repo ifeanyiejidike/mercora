@@ -15,7 +15,7 @@ export default function ErrorPage({ error, reset }: ErrorPageProps) {
   }, [error]);
 
   return (
-    <section className="relative isolate overflow-hidden bg-[#040A18]">
+    <section className="relative isolate overflow-hidden bg-neutral-1">
       <div className="absolute inset-0">
         <div className="absolute left-0 top-0 h-[320px] w-[320px] rounded-full bg-red-500/10 blur-3xl" />
         <div className="absolute right-0 top-[100px] h-[280px] w-[280px] rounded-full bg-indigo-500/10 blur-3xl" />
@@ -44,7 +44,7 @@ export default function ErrorPage({ error, reset }: ErrorPageProps) {
               <button
                 type="button"
                 onClick={reset}
-                className="inline-flex h-14 items-center justify-center gap-2 rounded-2xl bg-[linear-gradient(135deg,#5b3df5_0%,#3b82f6_100%)] px-7 text-sm font-semibold text-white shadow-[0_18px_45px_rgba(79,70,229,0.38)] transition duration-300 hover:-translate-y-0.5 hover:shadow-[0_22px_50px_rgba(79,70,229,0.42)]"
+                className="inline-flex h-14 items-center justify-center gap-2 rounded-2xl bg-[image:var(--brand-gradient)] px-7 text-sm font-semibold text-white shadow-[0_18px_45px_rgba(79,70,229,0.38)] transition duration-300 hover:-translate-y-0.5 hover:shadow-[0_22px_50px_rgba(79,70,229,0.42)]"
               >
                 <RefreshCcw className="h-4 w-4" />
                 Try again

@@ -99,7 +99,7 @@ export default function StorefrontCartPage() {
   };
 
   return (
-    <main className="bg-[#040A18] text-white">
+    <main className="bg-neutral-1 text-white">
       <section className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
         <div className="grid gap-8 xl:grid-cols-[1.06fr_0.94fr]">
           <section className="overflow-hidden rounded-[30px] border border-white/10 bg-[linear-gradient(180deg,rgba(16,22,48,0.78),rgba(8,12,28,0.96))] shadow-[0_22px_60px_rgba(0,0,0,0.24)]">
@@ -140,7 +140,7 @@ export default function StorefrontCartPage() {
                   </p>
                   <Link
                     href={`/_stores/${storeSlug}/products`}
-                    className="mt-6 inline-flex h-12 items-center justify-center rounded-xl bg-[linear-gradient(135deg,#5b3df5_0%,#3b82f6_100%)] px-6 text-sm font-semibold text-white"
+                    className="mt-6 inline-flex h-12 items-center justify-center rounded-xl bg-[image:var(--brand-gradient)] px-6 text-sm font-semibold text-white"
                   >
                     Browse products
                   </Link>
@@ -280,7 +280,7 @@ export default function StorefrontCartPage() {
                   className={`inline-flex h-12 w-full items-center justify-center rounded-xl px-4 text-sm font-semibold text-white ${
                     items.length === 0
                       ? "cursor-not-allowed bg-white/[0.06] opacity-60"
-                      : "bg-[linear-gradient(135deg,#5b3df5_0%,#3b82f6_100%)] shadow-[0_16px_38px_rgba(79,70,229,0.34)]"
+                      : "bg-[image:var(--brand-gradient)] shadow-[0_16px_38px_rgba(79,70,229,0.34)]"
                   }`}
                 >
                   Proceed to checkout

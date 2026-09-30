@@ -7,8 +7,6 @@ import { useAuth } from "@/hooks/use-auth";
 import { extractApiErrorMessage } from "@/lib/api/axios";
 import { env } from "@/lib/config/env";
 
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm, SubmitHandler } from "react-hook-form";
 import { Eye, EyeOff } from "lucide-react";
 
 import { LoginFormValues, loginSchema } from "@/lib/schema";
@@ -44,6 +42,7 @@ function FloatingInput({
 }: FloatingInputProps) {
   const [focused, setFocused] = useState(false);
   const lifted = focused || value.length > 0;
+  const errorId = `${id}-error`;
 
   return (
     <div>
@@ -63,7 +62,11 @@ function FloatingInput({
             "pointer-events-none absolute left-4 transition-all duration-200",
             lifted
               ? "top-2 text-[10px] font-semibold uppercase text-indigo-400"
-              : "top-1/2 -translate-y-1/2 text-sm text-slate-500",
+              : // Was text-slate-500 (#64748b): computed to 3.68:1 against
+                // this input's effective background — fails WCAG AA's
+                // 4.5:1 minimum for normal-size text. slate-400 computes
+                // to 6.83:1.
+                "top-1/2 -translate-y-1/2 text-sm text-slate-400",
           ].join(" ")}
         >
           {label}
@@ -80,6 +83,8 @@ function FloatingInput({
           onBlur={() => setFocused(false)}
           required={required}
           placeholder=""
+          aria-invalid={!!error}
+          aria-describedby={error ? errorId : undefined}
           className={[
             "h-[58px] w-full rounded-xl bg-white/[0.03] px-4 text-sm text-white outline-none",
             rightSlot ? "pr-20" : "",
@@ -94,7 +99,11 @@ function FloatingInput({
         )}
       </div>
 
-      {error && <p className="mt-1 text-[11px] text-red-400">{error}</p>}
+      {error && (
+        <p id={errorId} role="alert" className="mt-1 text-[11px] text-red-400">
+          {error}
+        </p>
+      )}
     </div>
   );
 }
@@ -221,7 +230,7 @@ export default function LoginPage() {
 
 
   return (
-    <main className="relative min-h-[calc(100vh-74px)] bg-[#06080F] text-white">
+    <main className="relative min-h-[calc(100vh-74px)] bg-neutral-auth-bg text-white">
       <div className="relative mx-auto grid max-w-7xl grid-cols-1 gap-10 px-5 py-14 lg:grid-cols-2">
 
         {/* LEFT */}

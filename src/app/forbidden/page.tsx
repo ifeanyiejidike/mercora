@@ -3,7 +3,7 @@ import { ArrowLeft, LockKeyhole, ShieldAlert } from "lucide-react";
 
 export default function ForbiddenPage() {
   return (
-    <main className="bg-[#040A18] text-white">
+    <main className="bg-neutral-1 text-white">
       <section className="relative isolate overflow-hidden">
         <div className="absolute inset-0">
           <div className="absolute left-0 top-0 h-[320px] w-[320px] rounded-full bg-red-500/10 blur-3xl" />
@@ -36,7 +36,7 @@ export default function ForbiddenPage() {
               <div className="mt-8 flex flex-col gap-4 sm:flex-row">
                 <Link
                   href="/"
-                  className="inline-flex h-14 items-center justify-center gap-2 rounded-2xl bg-[linear-gradient(135deg,#5b3df5_0%,#3b82f6_100%)] px-7 text-sm font-semibold text-white shadow-[0_18px_45px_rgba(79,70,229,0.38)] transition duration-300 hover:-translate-y-0.5 hover:shadow-[0_22px_50px_rgba(79,70,229,0.42)]"
+                  className="inline-flex h-14 items-center justify-center gap-2 rounded-2xl bg-[image:var(--brand-gradient)] px-7 text-sm font-semibold text-white shadow-[0_18px_45px_rgba(79,70,229,0.38)] transition duration-300 hover:-translate-y-0.5 hover:shadow-[0_22px_50px_rgba(79,70,229,0.42)]"
                 >
                   <ArrowLeft className="h-4 w-4" />
                   Back to homepage

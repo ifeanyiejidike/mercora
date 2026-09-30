@@ -41,7 +41,7 @@ export default async function StorefrontShippingPolicyPage({
   const basePath = `/_stores/${storeSlug}`;
 
   return (
-    <main className="bg-[#040A18] text-white">
+    <main className="bg-neutral-1 text-white">
       <PolicyShell
         title="Fulfillment Policy"
         description={`Fulfillment, shipping, and delivery guidance for ${storefront.store_name}.`}

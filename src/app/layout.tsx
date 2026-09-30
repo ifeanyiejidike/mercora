@@ -76,7 +76,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={inter.variable} suppressHydrationWarning>
-      <body className="min-h-screen bg-[#040A18] font-sans text-white antialiased">
+      <body className="min-h-screen bg-neutral-1 font-sans text-white antialiased">
         <a
           href="#main-content"
           className="sr-only z-[999] rounded-md bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-lg focus:not-sr-only focus:absolute focus:left-4 focus:top-4"
@@ -84,7 +84,7 @@ export default function RootLayout({
           Skip to content
         </a>
 
-        <div className="relative flex min-h-screen flex-col overflow-x-clip bg-[#040A18]">
+        <div className="relative flex min-h-screen flex-col overflow-x-clip bg-neutral-1">
           <div
             aria-hidden="true"
             className="pointer-events-none absolute inset-0"

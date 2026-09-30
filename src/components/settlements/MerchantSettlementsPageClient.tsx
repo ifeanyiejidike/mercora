@@ -175,7 +175,7 @@ export default function MerchantSettlementsPageClient() {
               <select
                 value={status}
                 onChange={(event) => setStatus(event.target.value)}
-                className="h-11 rounded-xl border border-white/10 bg-[#0b1224] px-4 text-sm text-white outline-none"
+                className="h-11 rounded-xl border border-white/10 bg-neutral-2 px-4 text-sm text-white outline-none"
               >
                 <option value="">All status</option>
                 <option value="on_hold">On hold</option>
@@ -188,7 +188,7 @@ export default function MerchantSettlementsPageClient() {
               <select
                 value={provider}
                 onChange={(event) => setProvider(event.target.value)}
-                className="h-11 rounded-xl border border-white/10 bg-[#0b1224] px-4 text-sm text-white outline-none"
+                className="h-11 rounded-xl border border-white/10 bg-neutral-2 px-4 text-sm text-white outline-none"
               >
                 <option value="">All providers</option>
                 <option value="flutterwave">Flutterwave</option>
@@ -285,7 +285,7 @@ export default function MerchantSettlementsPageClient() {
                 type="button"
                 onClick={() => void createBatch()}
                 disabled={isMutating}
-                className="inline-flex h-11 items-center justify-center gap-2 rounded-xl bg-[linear-gradient(135deg,#5b3df5_0%,#3b82f6_100%)] px-5 text-sm font-semibold text-white"
+                className="inline-flex h-11 items-center justify-center gap-2 rounded-xl bg-[image:var(--brand-gradient)] px-5 text-sm font-semibold text-white"
               >
                 {isMutating ? <Loader2 className="h-4 w-4 animate-spin" /> : null}
                 Create payout batch

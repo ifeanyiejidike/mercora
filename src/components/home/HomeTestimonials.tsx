@@ -6,7 +6,7 @@ import { testimonials } from "./home.data";
 
 export default function HomeTestimonials() {
   return (
-    <section className="border-t border-white/5 bg-[#040A18] pt-20 sm:pt-24">
+    <section className="border-t border-white/5 bg-neutral-1 pt-20 sm:pt-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr]">
           <FadeUp>

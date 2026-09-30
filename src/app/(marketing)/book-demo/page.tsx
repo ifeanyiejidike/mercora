@@ -72,7 +72,7 @@ const steps = [
 
 export default function BookDemoPage() {
   return (
-    <main className="bg-[#040A18] text-white">
+    <main className="bg-neutral-1 text-white">
       <section className="relative overflow-hidden border-b border-white/5">
         <div className="absolute inset-0">
           <div className="absolute left-0 top-0 h-[360px] w-[360px] rounded-full bg-indigo-600/10 blur-3xl" />
@@ -200,16 +200,16 @@ export default function BookDemoPage() {
                     defaultValue=""
                     className="h-12 w-full rounded-xl border border-white/10 bg-white/[0.04] px-4 text-sm text-white outline-none transition focus:border-indigo-400/50 focus:bg-white/[0.06]"
                   >
-                    <option value="" disabled className="bg-[#0b1224] text-slate-300">
+                    <option value="" disabled className="bg-neutral-2 text-slate-300">
                       Select your stage
                     </option>
-                    <option value="starting" className="bg-[#0b1224] text-slate-300">
+                    <option value="starting" className="bg-neutral-2 text-slate-300">
                       Getting started
                     </option>
-                    <option value="growing" className="bg-[#0b1224] text-slate-300">
+                    <option value="growing" className="bg-neutral-2 text-slate-300">
                       Growing
                     </option>
-                    <option value="advanced" className="bg-[#0b1224] text-slate-300">
+                    <option value="advanced" className="bg-neutral-2 text-slate-300">
                       More advanced
                     </option>
                   </select>
@@ -230,7 +230,7 @@ export default function BookDemoPage() {
 
                 <button
                   type="submit"
-                  className="inline-flex h-12 w-full items-center justify-center rounded-xl bg-[linear-gradient(135deg,#5b3df5_0%,#3b82f6_100%)] px-6 text-sm font-semibold text-white shadow-[0_16px_38px_rgba(79,70,229,0.34)] transition duration-300 hover:-translate-y-0.5 hover:shadow-[0_20px_44px_rgba(79,70,229,0.42)]"
+                  className="inline-flex h-12 w-full items-center justify-center rounded-xl bg-[image:var(--brand-gradient)] px-6 text-sm font-semibold text-white shadow-[0_16px_38px_rgba(79,70,229,0.34)] transition duration-300 hover:-translate-y-0.5 hover:shadow-[0_20px_44px_rgba(79,70,229,0.42)]"
                 >
                   Request Demo
                 </button>
@@ -324,7 +324,7 @@ export default function BookDemoPage() {
               <div className="flex flex-col gap-3 sm:flex-row lg:flex-col xl:flex-row">
                 <Link
                   href="/contact"
-                  className="inline-flex h-12 items-center justify-center rounded-xl bg-white px-6 text-sm font-semibold text-[#1a2452] transition duration-300 hover:bg-slate-100"
+                  className="inline-flex h-12 items-center justify-center rounded-xl bg-white px-6 text-sm font-semibold text-ink transition duration-300 hover:bg-slate-100"
                 >
                   Contact Us
                 </Link>

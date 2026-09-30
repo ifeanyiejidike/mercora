@@ -4,7 +4,7 @@ export default function HomeHowItWorks() {
   return (
     <section
       id="how-it-works"
-      className="border-t border-white/5 bg-[#040A18] py-20 sm:py-24"
+      className="border-t border-white/5 bg-neutral-1 py-20 sm:py-24"
     >
       <div className="mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-[0.72fr_1.28fr] lg:px-8">
         <div>
@@ -44,9 +44,9 @@ export default function HomeHowItWorks() {
           </div>
 
           <div className="grid lg:grid-cols-[230px_1fr]">
-            <aside className="border-b border-white/10 bg-[#050913] p-5 lg:border-b-0 lg:border-r">
+            <aside className="border-b border-white/10 bg-neutral-sidebar p-5 lg:border-b-0 lg:border-r">
               <div className="mb-8 flex items-center gap-3">
-                <div className="relative flex h-10 w-10 items-center justify-center overflow-hidden rounded-2xl bg-[linear-gradient(135deg,#5b3df5_0%,#3b82f6_100%)]">
+                <div className="relative flex h-10 w-10 items-center justify-center overflow-hidden rounded-2xl bg-[image:var(--brand-gradient)]">
                   <svg
                     viewBox="0 0 48 48"
                     aria-hidden="true"
@@ -128,7 +128,7 @@ export default function HomeHowItWorks() {
                     Sales Trend
                   </div>
 
-                  <div className="relative h-[250px] overflow-hidden rounded-2xl bg-[#0a1022]">
+                  <div className="relative h-[250px] overflow-hidden rounded-2xl bg-neutral-2">
                     <div className="absolute inset-x-6 top-12 border-t border-dashed border-white/10" />
                     <div className="absolute inset-x-6 top-1/2 border-t border-dashed border-white/10" />
                     <div className="absolute inset-x-6 bottom-12 border-t border-dashed border-white/10" />
@@ -159,7 +159,7 @@ export default function HomeHowItWorks() {
                       </defs>
                     </svg>
 
-                    <div className="absolute left-[54%] top-[34%] rounded-2xl border border-white/10 bg-[#050913]/95 px-4 py-3 shadow-xl">
+                    <div className="absolute left-[54%] top-[34%] rounded-2xl border border-white/10 bg-neutral-sidebar/95 px-4 py-3 shadow-xl">
                       <div className="text-xs text-slate-400">Fri, May 24</div>
                       <div className="mt-1 text-sm font-semibold text-white">
                         ₦395,400

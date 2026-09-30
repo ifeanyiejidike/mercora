@@ -41,7 +41,7 @@ export default async function StorefrontRefundPolicyPage({
   const basePath = `/_stores/${storeSlug}`;
 
   return (
-    <main className="bg-[#040A18] text-white">
+    <main className="bg-neutral-1 text-white">
       <PolicyShell
         title="Return Policy"
         description={`Return and refund guidance for ${storefront.store_name}.`}

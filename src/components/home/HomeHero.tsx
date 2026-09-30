@@ -42,7 +42,7 @@ export default function HomeHero() {
             <div className="mt-8 flex flex-col gap-4 sm:flex-row">
               <Link
                 href="/signup"
-                className="inline-flex h-14 items-center justify-center rounded-2xl bg-[linear-gradient(135deg,#5b3df5_0%,#3b82f6_100%)] px-7 text-sm font-semibold text-white shadow-[0_18px_45px_rgba(79,70,229,0.38)] transition hover:translate-y-[-1px]"
+                className="inline-flex h-14 items-center justify-center rounded-2xl bg-[image:var(--brand-gradient)] px-7 text-sm font-semibold text-white shadow-[0_18px_45px_rgba(79,70,229,0.38)] transition hover:translate-y-[-1px]"
               >
                 Create Your Store
               </Link>
@@ -214,7 +214,7 @@ function MiniProduct({
   alt: string;
 }) {
   return (
-    <div className="overflow-hidden rounded-[18px] bg-[#111827]">
+    <div className="overflow-hidden rounded-[18px] bg-neutral-panel">
       <div className="relative h-24 overflow-hidden">
         <Image
           src={image}

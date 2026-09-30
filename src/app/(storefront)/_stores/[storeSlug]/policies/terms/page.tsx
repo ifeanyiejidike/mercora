@@ -41,7 +41,7 @@ export default async function StorefrontTermsPolicyPage({
   const basePath = `/_stores/${storeSlug}`;
 
   return (
-    <main className="bg-[#040A18] text-white">
+    <main className="bg-neutral-1 text-white">
       <PolicyShell
         title="Terms of Service"
         description={`Terms governing the use of ${storefront.store_name}.`}

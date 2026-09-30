@@ -5,7 +5,7 @@ import { FadeUp } from "@/components/shared/motion";
 
 export default function HomeCTA() {
   return (
-    <section className="bg-[#040A18] pb-20 pt-10 sm:pb-24">
+    <section className="bg-neutral-1 pb-20 pt-10 sm:pb-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <FadeUp>
           <div className="overflow-hidden rounded-[24px] border border-indigo-500/20 bg-[linear-gradient(135deg,#2e1c8c_0%,#1f2d7a_58%,#1f3f8f_100%)] px-6 py-8 shadow-[0_20px_60px_rgba(44,34,130,0.35)] transition duration-300 hover:shadow-[0_26px_72px_rgba(44,34,130,0.42)] sm:px-8 lg:px-10">
@@ -27,7 +27,7 @@ export default function HomeCTA() {
               <div className="flex flex-col gap-3 sm:flex-row lg:flex-col xl:flex-row">
                 <Link
                   href="/signup"
-                  className="inline-flex h-12 items-center justify-center rounded-xl bg-white px-6 text-sm font-semibold text-[#1a2452] transition duration-300 hover:-translate-y-0.5 hover:bg-slate-100"
+                  className="inline-flex h-12 items-center justify-center rounded-xl bg-white px-6 text-sm font-semibold text-ink transition duration-300 hover:-translate-y-0.5 hover:bg-slate-100"
                 >
                   Start Free
                 </Link>

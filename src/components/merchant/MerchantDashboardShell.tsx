@@ -12,7 +12,7 @@ export default function MerchantDashboardShell({
   children,
 }: MerchantDashboardShellProps) {
   return (
-    <div className="min-h-screen bg-[#040A18] text-white">
+    <div className="min-h-screen bg-neutral-1 text-white">
       <div className="mx-auto flex max-w-[1800px]">
         <MerchantSidebar />
 

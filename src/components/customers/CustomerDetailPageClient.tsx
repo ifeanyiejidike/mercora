@@ -65,7 +65,7 @@ function EmptyActiveMerchantState() {
       </p>
       <Link
         href={env.routes.merchantDashboard}
-        className="mt-6 inline-flex h-12 items-center justify-center rounded-xl bg-[linear-gradient(135deg,#5b3df5_0%,#3b82f6_100%)] px-6 text-sm font-semibold text-white"
+        className="mt-6 inline-flex h-12 items-center justify-center rounded-xl bg-[image:var(--brand-gradient)] px-6 text-sm font-semibold text-white"
       >
         Go to merchant dashboard
       </Link>

@@ -77,7 +77,7 @@ const sections = [
 
 export default function TermsPage() {
   return (
-    <main className="bg-[#040A18] text-white">
+    <main className="bg-neutral-1 text-white">
       <section className="relative overflow-hidden border-b border-white/5">
         <div className="absolute inset-0">
           <div className="absolute left-0 top-0 h-[340px] w-[340px] rounded-full bg-indigo-600/10 blur-3xl" />
@@ -163,7 +163,7 @@ export default function TermsPage() {
               <div className="flex flex-col gap-3 sm:flex-row lg:flex-col xl:flex-row">
                 <Link
                   href="/contact"
-                  className="inline-flex h-12 items-center justify-center rounded-xl bg-white px-6 text-sm font-semibold text-[#1a2452] transition duration-300 hover:bg-slate-100"
+                  className="inline-flex h-12 items-center justify-center rounded-xl bg-white px-6 text-sm font-semibold text-ink transition duration-300 hover:bg-slate-100"
                 >
                   Contact Us
                 </Link>

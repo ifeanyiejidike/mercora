@@ -78,7 +78,7 @@ export default function StorefrontOrderPage() {
     order?.charge_currency || order?.base_currency || payment?.charge_currency || "NGN";
 
   return (
-    <main className="bg-[#040A18] text-white">
+    <main className="bg-neutral-1 text-white">
       <section className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
         <div className="grid gap-8 xl:grid-cols-[1.06fr_0.94fr]">
           <section className="overflow-hidden rounded-[30px] border border-white/10 bg-[linear-gradient(180deg,rgba(16,22,48,0.78),rgba(8,12,28,0.96))] shadow-[0_22px_60px_rgba(0,0,0,0.24)]">
@@ -190,7 +190,7 @@ export default function StorefrontOrderPage() {
                   href={`/_stores/${storeSlug}/payment/manual/${orderRef}?email=${encodeURIComponent(
                     email,
                   )}`}
-                  className="inline-flex h-12 w-full items-center justify-center rounded-xl bg-[linear-gradient(135deg,#5b3df5_0%,#3b82f6_100%)] px-4 text-sm font-semibold text-white"
+                  className="inline-flex h-12 w-full items-center justify-center rounded-xl bg-[image:var(--brand-gradient)] px-4 text-sm font-semibold text-white"
                 >
                   Open manual payment
                 </Link>
@@ -202,7 +202,7 @@ export default function StorefrontOrderPage() {
                   type="button"
                   onClick={() => void handleRetryPlatformPayment()}
                   disabled={isReinitializing}
-                  className="inline-flex h-12 w-full items-center justify-center rounded-xl bg-[linear-gradient(135deg,#5b3df5_0%,#3b82f6_100%)] px-4 text-sm font-semibold text-white disabled:cursor-not-allowed disabled:opacity-70"
+                  className="inline-flex h-12 w-full items-center justify-center rounded-xl bg-[image:var(--brand-gradient)] px-4 text-sm font-semibold text-white disabled:cursor-not-allowed disabled:opacity-70"
                 >
                   {isReinitializing ? "Preparing..." : "Retry payment"}
                 </button>

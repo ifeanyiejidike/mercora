@@ -48,7 +48,7 @@ export default function StorefrontReceiptPage() {
   }, [storeSlug, receiptNumber]);
 
   return (
-    <main className="bg-[#040A18] text-white">
+    <main className="bg-neutral-1 text-white">
       <section className="mx-auto max-w-6xl px-4 py-10 sm:px-6 lg:px-8">
         <div className="overflow-hidden rounded-[30px] border border-white/10 bg-[linear-gradient(180deg,rgba(16,22,48,0.78),rgba(8,12,28,0.96))] shadow-[0_22px_60px_rgba(0,0,0,0.24)]">
           <div className="border-b border-white/10 px-6 py-6 sm:px-8">
@@ -85,7 +85,7 @@ export default function StorefrontReceiptPage() {
                   type="button"
                   onClick={() => void loadReceipt(email, true)}
                   disabled={isReloading}
-                  className="inline-flex h-12 items-center justify-center rounded-xl bg-[linear-gradient(135deg,#5b3df5_0%,#3b82f6_100%)] px-6 text-sm font-semibold text-white"
+                  className="inline-flex h-12 items-center justify-center rounded-xl bg-[image:var(--brand-gradient)] px-6 text-sm font-semibold text-white"
                 >
                   {isReloading ? "Loading..." : "Reload"}
                 </button>

@@ -519,6 +519,31 @@ Rules:
 
 ## Design System and UI Standards
 
+### Color tokens (source of truth: `src/app/globals.css`)
+
+Colors are defined once as CSS custom properties and exposed as Tailwind utilities. **Do not add raw hex values (`bg-[#…]`) or copy-paste gradient strings into components — reference a token.**
+
+| Token | Value | Use |
+|---|---|---|
+| `--neutral-2` | `#0b1224` | Base app background → `bg-[color:var(--neutral-2)]` |
+| `--neutral-1` | `#040a18` | Deepest background → `bg-[color:var(--neutral-1)]` |
+| `--text-on-light` | `#1a2452` | Dark text on white/light surfaces (e.g. the white secondary buttons) — 14.81:1 on white |
+| `--brand-1` … `--brand-12` | Radix "Iris" dark scale | Brand accent; step 9 (`#5b5bd6`) is the solid fill, step 11 (`#b1a9ff`) is accessible brand-tinted text (8.87:1 on `--neutral-2`) |
+| `--brand-gradient` | `135deg, --brand-9 → #3b82f6` | The primary CTA gradient → `<Button variant="brand">` or `bg-[image:var(--brand-gradient)]` |
+| `--success-* / --warning-* / --error-*` | Radix Green/Amber/Red dark scales | Semantic states |
+
+Sourcing: values are copied verbatim from the `@radix-ui/colors` dark-mode scales (Iris for brand, Green/Amber/Red for semantic states); the neutrals are the values already established across the app, kept as-is rather than swapped for a generic gray scale.
+
+**Badge/pill rule (verified, not a style preference):** solid semantic fills with white text *fail* WCAG AA for green (`--success-9`, 3.16:1) and red (`--error-9`, 3.91:1). Use the subtle pattern instead — step-3 background + step-11 text (7.75–10.26:1). Brand step 9 with white text is the exception (5.37:1, passes).
+
+**Named utilities, not arbitrary-value brackets.** Every solid-color token above is used as a plain Tailwind utility (`bg-neutral-2`, `text-ink`, `bg-neutral-auth-bg`, etc.), not `bg-[color:var(--x)]` — the bracket form works too, but the named form is what the `@theme inline` mappings exist for. The one exception is `bg-[image:var(--brand-gradient)]`: gradients are `background-image`, not `background-color`, so there's no equivalent named utility for it in the `--color-*` namespace.
+
+The 4 near-miss dark backgrounds found during the audit (`#050913`, `#111827`, `#0a1022`, `#06080F`) were resolved individually rather than folded into `neutral-1`/`neutral-2` as a batch — computed perceptual distance (ΔE) showed `#0a1022` was an imperceptible duplicate of `neutral-2` (ΔE 0.84, folded in), while the other three were each a distinct, real surface role (`--neutral-auth-bg`, `--neutral-sidebar`, `--neutral-panel` — see table above) that would have visibly shifted if forced onto the main two.
+
+**The shadcn light/dark tokens (`--background`, `--primary`, etc.) are resolved, not removed.** They were scaffolding from the original `create-next-app`/shadcn init — `.dark` is never applied anywhere (confirmed: zero `dark:` variants in app code) and zero `src/components/ui/*` primitives were imported anywhere outside that folder itself (confirmed via import search). Rather than delete the tokens, they're now re-pointed at the real brand/neutral values above instead of the original unmodified gray `oklch(X 0 0)` placeholders — so if `<Button>` or any primitive is ever actually reached for, it renders correctly instead of gray. `:root` and `.dark` are kept identical for this same reason, in case a real toggle is added later.
+
+10 of the 11 `src/components/ui/*` primitive files (`checkbox`, `form`, `input`, `label`, `radio-group`, `select`, `slider`, `sonner`, `switch`, `textarea`) were deleted — each had zero imports anywhere, and several (`checkbox`, `select`, `slider`, `switch`, `radio-group`, `label`) referenced `@radix-ui/react-*` packages that were never even in `package.json`, meaning they couldn't have rendered if imported. `button.tsx` was kept — it holds the real `brand` variant and the touch-target size fix, and is the intended canonical home for the gradient even though no page currently imports `<Button>` directly yet (real CTAs still hand-roll `className`; wiring them to the component is further follow-up, not done here). Three now-orphaned npm packages (`sonner`, `react-hook-form`, `@hookform/resolvers`) were also removed — the latter two were dead imports inside the login form itself (`useForm`/`zodResolver` imported but never called; the form actually validates via a direct `loginSchema.safeParse()` call).
+
 Mercora’s frontend must remain:
 
 - premium

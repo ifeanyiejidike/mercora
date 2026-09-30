@@ -66,19 +66,19 @@ export default function OnboardingStorePage() {
                 defaultValue=""
                 className="h-12 w-full rounded-xl border border-white/10 bg-white/[0.04] px-4 text-sm text-white outline-none transition focus:border-indigo-400/50 focus:bg-white/[0.06]"
               >
-                <option value="" disabled className="bg-[#0b1224] text-slate-300">
+                <option value="" disabled className="bg-neutral-2 text-slate-300">
                   Select category
                 </option>
-                <option value="fashion" className="bg-[#0b1224] text-slate-300">
+                <option value="fashion" className="bg-neutral-2 text-slate-300">
                   Fashion
                 </option>
-                <option value="beauty" className="bg-[#0b1224] text-slate-300">
+                <option value="beauty" className="bg-neutral-2 text-slate-300">
                   Beauty
                 </option>
-                <option value="electronics" className="bg-[#0b1224] text-slate-300">
+                <option value="electronics" className="bg-neutral-2 text-slate-300">
                   Electronics
                 </option>
-                <option value="home" className="bg-[#0b1224] text-slate-300">
+                <option value="home" className="bg-neutral-2 text-slate-300">
                   Home & lifestyle
                 </option>
               </select>
@@ -135,7 +135,7 @@ export default function OnboardingStorePage() {
 
             <Link
               href="/onboarding/currency"
-              className="inline-flex h-12 items-center justify-center gap-2 rounded-xl bg-[linear-gradient(135deg,#5b3df5_0%,#3b82f6_100%)] px-6 text-sm font-semibold text-white shadow-[0_16px_38px_rgba(79,70,229,0.34)] transition duration-300 hover:-translate-y-0.5 hover:shadow-[0_20px_44px_rgba(79,70,229,0.42)]"
+              className="inline-flex h-12 items-center justify-center gap-2 rounded-xl bg-[image:var(--brand-gradient)] px-6 text-sm font-semibold text-white shadow-[0_16px_38px_rgba(79,70,229,0.34)] transition duration-300 hover:-translate-y-0.5 hover:shadow-[0_20px_44px_rgba(79,70,229,0.42)]"
             >
               Continue to currency
               <ArrowRight className="h-4 w-4" />

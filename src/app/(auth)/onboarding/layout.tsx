@@ -64,7 +64,7 @@ export default function OnboardingLayout({ children }: OnboardingLayoutProps) {
   const pathname = usePathname() ?? "/onboarding";
 
   return (
-    <div className="min-h-screen bg-[#040A18] text-white">
+    <div className="min-h-screen bg-neutral-1 text-white">
       <div className="grid min-h-screen lg:grid-cols-[320px_1fr]">
         <aside className="border-b border-white/10 bg-[linear-gradient(180deg,rgba(10,15,34,0.98),rgba(6,10,24,1))] lg:border-b-0 lg:border-r">
           <div className="sticky top-0 px-5 py-6 sm:px-6 lg:px-7">
@@ -72,7 +72,7 @@ export default function OnboardingLayout({ children }: OnboardingLayoutProps) {
               href="/"
               className="inline-flex items-center gap-3 rounded-2xl transition hover:opacity-95"
             >
-              <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[linear-gradient(135deg,#5b3df5_0%,#3b82f6_100%)] text-sm font-bold text-white">
+              <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[image:var(--brand-gradient)] text-sm font-bold text-white">
                 M
               </div>
               <div>

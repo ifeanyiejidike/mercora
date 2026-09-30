@@ -132,7 +132,7 @@ export default function MerchantNewProductPage() {
           <select
             value={categoryId}
             onChange={(event) => setCategoryId(event.target.value)}
-            className="h-11 rounded-xl border border-white/10 bg-[#0b1224] px-4 text-sm text-white outline-none"
+            className="h-11 rounded-xl border border-white/10 bg-neutral-2 px-4 text-sm text-white outline-none"
           >
             <option value="">No category</option>
             {categories.map((category) => (
@@ -145,7 +145,7 @@ export default function MerchantNewProductPage() {
           <select
             value={status}
             onChange={(event) => setStatus(event.target.value)}
-            className="h-11 rounded-xl border border-white/10 bg-[#0b1224] px-4 text-sm text-white outline-none"
+            className="h-11 rounded-xl border border-white/10 bg-neutral-2 px-4 text-sm text-white outline-none"
           >
             <option value="draft">Draft</option>
             <option value="active">Active</option>
@@ -155,7 +155,7 @@ export default function MerchantNewProductPage() {
           <select
             value={productType}
             onChange={(event) => setProductType(event.target.value)}
-            className="h-11 rounded-xl border border-white/10 bg-[#0b1224] px-4 text-sm text-white outline-none"
+            className="h-11 rounded-xl border border-white/10 bg-neutral-2 px-4 text-sm text-white outline-none"
           >
             <option value="physical">Physical</option>
             <option value="digital">Digital</option>
@@ -189,7 +189,7 @@ export default function MerchantNewProductPage() {
           type="button"
           onClick={() => void createProduct()}
           disabled={isSaving || !name.trim() || !price.trim()}
-          className="mt-4 inline-flex h-11 items-center justify-center gap-2 rounded-xl bg-[linear-gradient(135deg,#5b3df5_0%,#3b82f6_100%)] px-5 text-sm font-semibold text-white"
+          className="mt-4 inline-flex h-11 items-center justify-center gap-2 rounded-xl bg-[image:var(--brand-gradient)] px-5 text-sm font-semibold text-white"
         >
           {isSaving ? <Loader2 className="h-4 w-4 animate-spin" /> : <Plus className="h-4 w-4" />}
           Create product

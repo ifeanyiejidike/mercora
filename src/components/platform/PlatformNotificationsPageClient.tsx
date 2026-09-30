@@ -73,7 +73,7 @@ export default function PlatformNotificationsPageClient() {
           <select
             value={days}
             onChange={(event) => setDays(Number(event.target.value))}
-            className="h-11 rounded-xl border border-white/10 bg-[#0b1224] px-4 text-sm text-white outline-none"
+            className="h-11 rounded-xl border border-white/10 bg-neutral-2 px-4 text-sm text-white outline-none"
           >
             <option value={7}>Last 7 days</option>
             <option value={30}>Last 30 days</option>
@@ -104,7 +104,7 @@ export default function PlatformNotificationsPageClient() {
           <button
             type="button"
             onClick={() => void load()}
-            className="h-11 rounded-xl bg-[linear-gradient(135deg,#5b3df5_0%,#3b82f6_100%)] px-5 text-sm font-semibold text-white"
+            className="h-11 rounded-xl bg-[image:var(--brand-gradient)] px-5 text-sm font-semibold text-white"
           >
             Apply
           </button>

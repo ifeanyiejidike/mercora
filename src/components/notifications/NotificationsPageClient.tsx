@@ -177,7 +177,7 @@ export default function NotificationsPageClient() {
               <button
                 type="button"
                 onClick={() => void markAllRead()}
-                className="inline-flex h-11 items-center justify-center rounded-xl bg-[linear-gradient(135deg,#5b3df5_0%,#3b82f6_100%)] px-5 text-sm font-semibold text-white"
+                className="inline-flex h-11 items-center justify-center rounded-xl bg-[image:var(--brand-gradient)] px-5 text-sm font-semibold text-white"
               >
                 Mark all read
               </button>
@@ -213,7 +213,7 @@ export default function NotificationsPageClient() {
             <select
               value={category}
               onChange={(event) => setCategory(event.target.value)}
-              className="h-11 rounded-xl border border-white/10 bg-[#0b1224] px-4 text-sm text-white outline-none"
+              className="h-11 rounded-xl border border-white/10 bg-neutral-2 px-4 text-sm text-white outline-none"
             >
               <option value="">All categories</option>
               {categories.map((item) => (
@@ -331,7 +331,7 @@ export default function NotificationsPageClient() {
               type="button"
               onClick={() => void savePreferences()}
               disabled={isSavingPrefs}
-              className="inline-flex h-10 items-center justify-center gap-2 rounded-xl bg-[linear-gradient(135deg,#5b3df5_0%,#3b82f6_100%)] px-4 text-sm font-semibold text-white"
+              className="inline-flex h-10 items-center justify-center gap-2 rounded-xl bg-[image:var(--brand-gradient)] px-4 text-sm font-semibold text-white"
             >
               {isSavingPrefs ? (
                 <Loader2 className="h-4 w-4 animate-spin" />
@@ -405,7 +405,7 @@ export default function NotificationsPageClient() {
                           ),
                         )
                       }
-                      className="h-10 rounded-xl border border-white/10 bg-[#0b1224] px-3 text-sm text-white outline-none"
+                      className="h-10 rounded-xl border border-white/10 bg-neutral-2 px-3 text-sm text-white outline-none"
                     >
                       <option value="immediate">Immediate</option>
                       <option value="daily_digest">Daily digest</option>

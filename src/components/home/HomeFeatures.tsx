@@ -7,7 +7,7 @@ import { featureCards } from "./home.data";
 
 export default function HomeFeatures() {
   return (
-    <section id="features" className="border-t border-white/5 bg-[#040A18] py-20 sm:py-24">
+    <section id="features" className="border-t border-white/5 bg-neutral-1 py-20 sm:py-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <FadeUp>
           <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">

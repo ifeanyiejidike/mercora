@@ -11,7 +11,7 @@ type AuthLayoutProps = {
 export default function AuthLayout({ children }: AuthLayoutProps) {
   return (
     <AuthProvider>
-      <div className="relative min-h-screen overflow-hidden bg-[#040A18] text-white">
+      <div className="relative min-h-screen overflow-hidden bg-neutral-1 text-white">
         <div className="absolute inset-0">
           <div className="absolute left-0 top-0 h-[340px] w-[340px] rounded-full bg-indigo-600/10 blur-3xl" />
           <div className="absolute right-0 top-[120px] h-[300px] w-[300px] rounded-full bg-blue-500/10 blur-3xl" />

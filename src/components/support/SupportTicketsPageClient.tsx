@@ -128,7 +128,7 @@ export default function SupportTicketsPageClient() {
             <select
               value={status}
               onChange={(event) => setStatus(event.target.value)}
-              className="h-11 rounded-xl border border-white/10 bg-[#0b1224] px-4 text-sm text-white outline-none"
+              className="h-11 rounded-xl border border-white/10 bg-neutral-2 px-4 text-sm text-white outline-none"
             >
               <option value="">All status</option>
               <option value="open">Open</option>
@@ -141,7 +141,7 @@ export default function SupportTicketsPageClient() {
             <select
               value={priority}
               onChange={(event) => setPriority(event.target.value)}
-              className="h-11 rounded-xl border border-white/10 bg-[#0b1224] px-4 text-sm text-white outline-none"
+              className="h-11 rounded-xl border border-white/10 bg-neutral-2 px-4 text-sm text-white outline-none"
             >
               <option value="">All priority</option>
               <option value="low">Low</option>
@@ -152,7 +152,7 @@ export default function SupportTicketsPageClient() {
             <button
               type="button"
               onClick={() => void load()}
-              className="h-11 rounded-xl bg-[linear-gradient(135deg,#5b3df5_0%,#3b82f6_100%)] px-4 text-sm font-semibold text-white"
+              className="h-11 rounded-xl bg-[image:var(--brand-gradient)] px-4 text-sm font-semibold text-white"
             >
               Apply
             </button>
@@ -221,7 +221,7 @@ export default function SupportTicketsPageClient() {
               <select
                 value={newCategory}
                 onChange={(event) => setNewCategory(event.target.value)}
-                className="h-11 rounded-xl border border-white/10 bg-[#0b1224] px-4 text-sm text-white outline-none"
+                className="h-11 rounded-xl border border-white/10 bg-neutral-2 px-4 text-sm text-white outline-none"
               >
                 <option value="general">General</option>
                 <option value="storefront">Storefront</option>
@@ -238,7 +238,7 @@ export default function SupportTicketsPageClient() {
               <select
                 value={newPriority}
                 onChange={(event) => setNewPriority(event.target.value)}
-                className="h-11 rounded-xl border border-white/10 bg-[#0b1224] px-4 text-sm text-white outline-none"
+                className="h-11 rounded-xl border border-white/10 bg-neutral-2 px-4 text-sm text-white outline-none"
               >
                 <option value="low">Low</option>
                 <option value="medium">Medium</option>
@@ -272,7 +272,7 @@ export default function SupportTicketsPageClient() {
               type="button"
               onClick={() => void createTicket()}
               disabled={isSubmitting || !subject.trim()}
-              className="inline-flex h-11 items-center justify-center gap-2 rounded-xl bg-[linear-gradient(135deg,#5b3df5_0%,#3b82f6_100%)] px-5 text-sm font-semibold text-white disabled:opacity-70"
+              className="inline-flex h-11 items-center justify-center gap-2 rounded-xl bg-[image:var(--brand-gradient)] px-5 text-sm font-semibold text-white disabled:opacity-70"
             >
               {isSubmitting ? <Loader2 className="h-4 w-4 animate-spin" /> : null}
               Create ticket

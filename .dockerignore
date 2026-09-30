@@ -10,5 +10,4 @@ out
 npm-debug.log*
 .DS_Store
 e2e
-text_files
-mercora-plans-currency-basic-structure.txt
+docs

@@ -62,7 +62,7 @@ export default function PlatformPayoutBatchesPageClient() {
             <select
               value={days}
               onChange={(event) => setDays(Number(event.target.value))}
-              className="h-11 rounded-xl border border-white/10 bg-[#0b1224] px-4 text-sm text-white outline-none"
+              className="h-11 rounded-xl border border-white/10 bg-neutral-2 px-4 text-sm text-white outline-none"
             >
               <option value={7}>Last 7 days</option>
               <option value={30}>Last 30 days</option>
@@ -73,7 +73,7 @@ export default function PlatformPayoutBatchesPageClient() {
               type="button"
               onClick={() => void load(true)}
               disabled={isRefreshing}
-              className="inline-flex h-11 items-center justify-center gap-2 rounded-xl bg-[linear-gradient(135deg,#5b3df5_0%,#3b82f6_100%)] px-5 text-sm font-semibold text-white"
+              className="inline-flex h-11 items-center justify-center gap-2 rounded-xl bg-[image:var(--brand-gradient)] px-5 text-sm font-semibold text-white"
             >
               {isRefreshing ? <Loader2 className="h-4 w-4 animate-spin" /> : null}
               Refresh
@@ -95,7 +95,7 @@ export default function PlatformPayoutBatchesPageClient() {
           <select
             value={status}
             onChange={(event) => setStatus(event.target.value)}
-            className="h-11 rounded-xl border border-white/10 bg-[#0b1224] px-4 text-sm text-white outline-none"
+            className="h-11 rounded-xl border border-white/10 bg-neutral-2 px-4 text-sm text-white outline-none"
           >
             <option value="">All status</option>
             <option value="scheduled">Scheduled</option>

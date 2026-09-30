@@ -133,7 +133,7 @@ export default async function StorefrontProductDetailPage({
   })();
 
   return (
-    <main className="bg-[#040A18] text-white">
+    <main className="bg-neutral-1 text-white">
       <section className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
         <div className="mb-6 flex flex-wrap items-center gap-3 text-sm text-slate-400">
           <Link href={basePath} className="transition hover:text-white">

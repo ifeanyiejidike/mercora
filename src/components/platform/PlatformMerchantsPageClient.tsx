@@ -58,7 +58,7 @@ export default function PlatformMerchantsPageClient() {
             type="button"
             onClick={() => void load(true)}
             disabled={isRefreshing}
-            className="inline-flex h-11 items-center justify-center gap-2 rounded-xl bg-[linear-gradient(135deg,#5b3df5_0%,#3b82f6_100%)] px-5 text-sm font-semibold text-white"
+            className="inline-flex h-11 items-center justify-center gap-2 rounded-xl bg-[image:var(--brand-gradient)] px-5 text-sm font-semibold text-white"
           >
             {isRefreshing ? <Loader2 className="h-4 w-4 animate-spin" /> : null}
             Refresh

@@ -149,7 +149,7 @@ export default function SupportTicketDetailPageClient() {
             <select
               value={status}
               onChange={(event) => setStatus(event.target.value)}
-              className="h-11 w-full rounded-xl border border-white/10 bg-[#0b1224] px-4 text-sm text-white outline-none"
+              className="h-11 w-full rounded-xl border border-white/10 bg-neutral-2 px-4 text-sm text-white outline-none"
             >
               <option value="open">Open</option>
               <option value="in_progress">In progress</option>
@@ -162,7 +162,7 @@ export default function SupportTicketDetailPageClient() {
             <select
               value={priority}
               onChange={(event) => setPriority(event.target.value)}
-              className="h-11 w-full rounded-xl border border-white/10 bg-[#0b1224] px-4 text-sm text-white outline-none"
+              className="h-11 w-full rounded-xl border border-white/10 bg-neutral-2 px-4 text-sm text-white outline-none"
             >
               <option value="low">Low</option>
               <option value="medium">Medium</option>
@@ -174,7 +174,7 @@ export default function SupportTicketDetailPageClient() {
               type="button"
               onClick={() => void updateTicket()}
               disabled={isSavingTicket}
-              className="inline-flex h-11 items-center justify-center gap-2 rounded-xl bg-[linear-gradient(135deg,#5b3df5_0%,#3b82f6_100%)] px-5 text-sm font-semibold text-white"
+              className="inline-flex h-11 items-center justify-center gap-2 rounded-xl bg-[image:var(--brand-gradient)] px-5 text-sm font-semibold text-white"
             >
               {isSavingTicket ? <Loader2 className="h-4 w-4 animate-spin" /> : null}
               Save ticket
@@ -246,7 +246,7 @@ export default function SupportTicketDetailPageClient() {
                 type="button"
                 onClick={() => void sendMessage()}
                 disabled={isSending || !body.trim()}
-                className="inline-flex h-11 items-center justify-center gap-2 rounded-xl bg-[linear-gradient(135deg,#5b3df5_0%,#3b82f6_100%)] px-5 text-sm font-semibold text-white"
+                className="inline-flex h-11 items-center justify-center gap-2 rounded-xl bg-[image:var(--brand-gradient)] px-5 text-sm font-semibold text-white"
               >
                 {isSending ? <Loader2 className="h-4 w-4 animate-spin" /> : null}
                 Send message

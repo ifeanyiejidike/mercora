@@ -76,7 +76,7 @@ export default async function StorefrontContactPage({
     address;
 
   return (
-    <main className="bg-[#040A18] text-white">
+    <main className="bg-neutral-1 text-white">
       <section className="relative isolate overflow-hidden border-b border-white/10">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.06),transparent_30%)]" />
         <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(4,10,24,0.18)_0%,rgba(4,10,24,0.96)_100%)]" />
@@ -101,7 +101,7 @@ export default async function StorefrontContactPage({
               <div className="mt-8 flex flex-col gap-4 sm:flex-row">
                 <Link
                   href={`${basePath}/products`}
-                  className="inline-flex h-14 items-center justify-center rounded-2xl bg-[linear-gradient(135deg,#5b3df5_0%,#3b82f6_100%)] px-7 text-sm font-semibold text-white shadow-[0_18px_45px_rgba(79,70,229,0.38)] transition duration-300 hover:-translate-y-0.5 hover:shadow-[0_22px_50px_rgba(79,70,229,0.42)]"
+                  className="inline-flex h-14 items-center justify-center rounded-2xl bg-[image:var(--brand-gradient)] px-7 text-sm font-semibold text-white shadow-[0_18px_45px_rgba(79,70,229,0.38)] transition duration-300 hover:-translate-y-0.5 hover:shadow-[0_22px_50px_rgba(79,70,229,0.42)]"
                 >
                   Browse products
                 </Link>
