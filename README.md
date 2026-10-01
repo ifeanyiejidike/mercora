@@ -55,10 +55,12 @@ Found and fixed during a production-readiness pass (dates approximate — check 
 - **axios 1.13.5 → 1.20.0**: multiple real CVEs affecting a library used for every API call in this app (auth, payments, everything). `npm audit` went from 16 vulnerabilities (1 critical) to 0 after this and the Next.js bump plus `npm audit fix`.
 - **`next lint` no longer exists** in Next.js 16; the project's ESLint config was also still in the pre-v9 `.eslintrc.cjs` format. Migrated to a native flat config (`eslint.config.mjs`) and pointed `npm run lint` at `eslint .` directly.
 - **`/api/auth/logout` and `/api/auth/refresh`** were empty files with no exported handler — a Next.js build failure waiting to happen. Confirmed nothing calls them (the real auth flow hits the Django backend directly) and removed them rather than guessing at cookie-proxy logic nothing uses.
-- **`next-sitemap.config.js` had a hardcoded, stale domain** that didn't match `.env.production`'s `NEXT_PUBLIC_SITE_URL` — sitemap URLs would have been wrong in production. Now derived from the same env var.
+- **`next-sitemap` was removed entirely**, not just patched. It originally had a hardcoded, stale domain (fixed first), but the real problem surfaced later: it wrote static `public/sitemap.xml`/`robots.txt` that collided with Next.js's own native `src/app/sitemap.ts`/`robots.ts` routes at the same paths — a hard Next.js build error (`scripts/fix-sitemap-index.js`, referenced in `package.json`'s `postbuild` to paper over this, was never actually committed to the repo). Removed the static generator; the native routes now derive their domain from `NEXT_PUBLIC_SITE_URL` directly.
 - **`next.config.ts` had leftover remote-image hostnames from a different project** (an unrelated backend domain, a placeholder Supabase URL). Removed; the real media hostname is now derived from `NEXT_PUBLIC_API_URL` so it can't silently drift again.
 - **`revalidateTag` needed a second argument** under Next.js 16's updated cache API — caught by `tsc`, fixed.
 - Removed two genuinely unused dependencies: `resend`, `@react-google-maps/api`.
+- **`package.json`'s name, `.env.production`'s site/API URLs, and a comment in `.env.example` all still said "gravity-concepts"** — leftover from this project being bootstrapped off a different one (the Gravity Concepts agency site; a separate, commented-out CoursePilot URL was found in the same file, confirming the pattern). Mercora and Gravity Concepts are unrelated products; all references removed. The production domain isn't registered yet, so `.env.production` now holds an explicit `TODO` placeholder instead of a real-looking but wrong URL.
+- **`(merchant)/dashboard/layout.tsx` was missing `StorefrontProvider`** despite wrapping `AuthProvider`/`MerchantProvider` — any page calling `useStorefront()` (5 settings pages) threw during Vercel's static prerendering, failing the build. Fixed, and the whole route segment marked `dynamic = "force-dynamic"` since an authenticated per-merchant dashboard has no business being statically prerendered in the first place — same root cause could otherwise recur on any future page in that segment.
 
 ---
 
@@ -141,14 +143,15 @@ Current and intended frontend stack:
 - route handlers for health check (`/api/health`) and on-demand ISR revalidation (`/api/revalidate`)
 - ESLint 9 (flat config — `eslint.config.mjs`; `next lint` no longer exists as of Next.js 16)
 - Sentry error monitoring (`@sentry/nextjs`) — wired via `src/instrumentation.ts` (server/edge) and `src/instrumentation-client.ts` (browser), plus `withSentryConfig(...)` wrapping `next.config.ts`. Entirely no-op unless `NEXT_PUBLIC_SENTRY_DSN` is set — no Sentry account needed for local dev. Source-map upload (for readable stack traces) additionally needs `SENTRY_AUTH_TOKEN`/`SENTRY_ORG`/`SENTRY_PROJECT`; without them the build still succeeds, it just skips that step.
+- `@radix-ui/colors` — source of the color token system (see Design System and UI Standards). Used only at the `globals.css` authoring stage; not imported at runtime by any component.
 
 Optional or implementation-dependent tooling:
 
 - query/state helpers for server-side data hydration
 - theme provider if dark/light mode remains enabled
-- shadcn/ui-style primitives where appropriate
+- `src/components/ui/button.tsx` is the one shadcn primitive kept (holds the real `brand` variant and the token-driven gradient); the other 10 were deleted as unused — see Design System and UI Standards
 
-Removed as unused dead dependencies (were installed but never imported anywhere): `resend`, `@react-google-maps/api`. Re-add only if an actual feature starts using them.
+Removed as unused dead dependencies (were installed but never imported anywhere, or were dead imports inside a file that otherwise works): `resend`, `@react-google-maps/api`, `sonner`, `react-hook-form`, `@hookform/resolvers`. Re-add only if an actual feature starts using them.
 
 ---
 
@@ -596,13 +599,13 @@ Required standards:
 
 Production-quality accessibility standards should include:
 
-- semantic headings
-- explicit labels for all controls
-- keyboard-accessible menus, drawers, and dialogs
-- focus visibility on interactive controls
-- readable color contrast
-- loading and empty states that are understandable to non-visual users
-- descriptive button text instead of vague action labels
+- semantic headings — **spot-checked**: `<h1>` usage is widespread and structurally sound (107 files); homepage/merchant-dashboard h1s live in their `*Client.tsx`/Hero components rather than the thin `page.tsx` wrappers
+- explicit labels for all controls — **partially verified**: the login form's `FloatingInput` has correct `htmlFor`/`id` label association, plus `aria-invalid`/`aria-describedby` wired to its error state (was missing — screen reader users previously got no indication a field was invalid). Not yet swept across every other form.
+- keyboard-accessible menus, drawers, and dialogs — **verified for the mobile nav drawer**: real focus trap (Tab/Shift+Tab cycle within it while open) and focus restoration to the trigger button on close, plus pre-existing Escape-key handling. Not yet checked for other dialogs/menus.
+- focus visibility on interactive controls — **verified**: the base `Button` component's `focus-visible:ring-[3px]` is real and present
+- readable color contrast — **computed and fixed where found**: `FloatingInput`'s resting label color was a real, computed WCAG AA failure (3.68:1, needs 4.5:1) — fixed to 6.83:1. Solid green/red fills with white text also fail (3.16:1/3.91:1) — documented in Design System and UI Standards as a pattern to avoid (use the subtle badge pattern instead).
+- loading and empty states that are understandable to non-visual users — not yet audited
+- descriptive button text instead of vague action labels — not yet audited
 
 ---
 
@@ -691,6 +694,18 @@ REVALIDATE_SECRET=            # required for POST /api/revalidate to work at all
 ```bash
 NEXT_PUBLIC_SENTRY_DSN=        # blank = disabled, no account needed for local dev
 SENTRY_ENVIRONMENT=
+SENTRY_ORG=                    # source-map upload only — safe to leave unset
+SENTRY_PROJECT=                # source-map upload only — safe to leave unset
+SENTRY_AUTH_TOKEN=              # source-map upload only — safe to leave unset
+```
+
+### Author / socials (footer, metadata)
+
+```bash
+NEXT_PUBLIC_AUTHOR_NAME=
+NEXT_PUBLIC_AUTHOR_GITHUB=
+NEXT_PUBLIC_AUTHOR_LINKEDIN=
+NEXT_PUBLIC_AUTHOR_TWITTER=
 ```
 
 ### Notes
@@ -815,7 +830,7 @@ If you add a new external script or API host, update both `next.config.ts`'s CSP
 **Current automated test status (verify before trusting this section — status can drift):**
 
 - **Type checking**: `npx tsc --noEmit` — clean.
-- **Lint**: `npm run lint` — 0 errors, ~82 warnings (mostly `react-hooks/exhaustive-deps` and a few unused imports). Not yet fixed; safe to fix incrementally, none block a build.
+- **Lint**: `npm run lint` — 0 errors, 80 warnings (mostly `react-hooks/exhaustive-deps` and a few unused imports). Not yet fixed; safe to fix incrementally, none block a build.
 - **Unit/component tests**: **none configured.** No Jest or Vitest setup exists yet. This is a real gap for a project this size — worth adding (Vitest + React Testing Library is the natural fit for a Next.js App Router project) before relying on this checklist alone for confidence.
 - **E2E tests**: **scaffolded but not implemented.** `e2e/*.spec.ts` exist (auth, onboarding, merchant-dashboard, merchant-orders, managed-checkout-flow, manual-payment-flow, receipt-flow, platform-admin, marketing) but every file is currently empty, and `@playwright/test` is not in `package.json`. The file names describe the intended coverage — treat them as a to-do list, not existing tests. `npm test`/`npm run e2e` do not currently exist as scripts.
 - **Build**: `npm run build` succeeds in any environment with normal internet access (Vercel, GitHub Actions). It will fail in network-restricted sandboxes specifically because `next/font/google` needs to fetch font files at build time — that's an environment limitation, not an app bug.
